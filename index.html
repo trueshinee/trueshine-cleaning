@@ -1,2445 +1,1960 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrueShine - профессиональный клининг для вашего дома</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            background-color: #0a0a0a;
-            color: #f0f0f0;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background-color: rgba(20, 20, 20, 0.95);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .logo span {
-            color: #cccccc;
-            font-weight: normal;
-            font-size: 0.9rem;
-            display: block;
-            margin-top: 2px;
-            letter-spacing: 0.5px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            text-decoration: none;
-            color: #cccccc;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            color: #ffffff;
-        }
-        
-        .phone {
-            font-weight: bold;
-            color: #ffffff;
-            font-size: 1.1rem;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.9)), 
-                        url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            margin-top: 70px;
-        }
-        
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease forwards;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .hero-content h1 span {
-            display: block;
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-top: 0.5rem;
-            font-weight: normal;
-            text-transform: none;
-            letter-spacing: 0;
-        }
-        
-        .start-btn {
-            display: inline-block;
-            background-color: #333333;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-top: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease 0.5s forwards;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            border: 1px solid #444;
-        }
-        
-        .start-btn:hover {
-            background-color: #444444;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 80px 0;
-            background-color: #111111;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .benefit-card {
-            text-align: center;
-            padding: 30px 20px;
-            border-radius: 10px;
-            background-color: #1a1a1a;
-            transition: all 0.3s ease;
-            border: 1px solid #333;
-        }
-        
-        .benefit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
-        }
-        
-        .benefit-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #cccccc;
-        }
-        
-        .benefit-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-        
-        .benefit-card p {
-            color: #aaa;
-        }
-        
-        /* Services Section */
-        .services {
-            padding: 80px 0;
-            background-color: #0a0a0a;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .section-title p {
-            font-size: 1.1rem;
-            color: #aaa;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .services-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .service-item {
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.3s ease;
-            border-left: 4px solid #333;
-            border: 1px solid #333;
-        }
-        
-        .service-header {
-            padding: 25px 30px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .service-header:hover {
-            background-color: #222222;
-        }
-        
-        .service-icon {
-            width: 70px;
-            height: 70px;
-            background-color: #333;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            flex-shrink: 0;
-            font-size: 2rem;
-            color: white;
-        }
-        
-        .service-title {
-            flex-grow: 1;
-        }
-        
-        .service-title h3 {
-            font-size: 1.6rem;
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
-        
-        .service-title p {
-            color: #aaa;
-            font-size: 1.1rem;
-        }
-        
-        .service-price {
-            background-color: #333;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin-right: 20px;
-        }
-        
-        .service-arrow {
-            font-size: 1.5rem;
-            color: #ccc;
-            transition: transform 0.3s ease;
-        }
-        
-        .service-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-            background-color: #1a1a1a;
-        }
-        
-        .service-content-inner {
-            padding: 0 30px 30px;
-        }
-        
-        .service-description {
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #ccc;
-        }
-        
-        .service-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        
-        .included-list, .not-included-list {
-            background-color: #222;
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid #333;
-        }
-        
-        .included-list h4, .not-included-list h4 {
-            color: #ffffff;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .included-list h4:before {
-            content: "✓";
-            color: #4CAF50;
-            margin-right: 10px;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        
-        .not-included-list h4:before {
-            content: "✕";
-            color: #f44336;
-            margin-right: 10px;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        
-        .included-list ul, .not-included-list ul {
-            padding-left: 20px;
-            color: #aaa;
-            line-height: 1.6;
-        }
-        
-        .included-list li, .not-included-list li {
-            margin-bottom: 10px;
-            position: relative;
-        }
-        
-        .service-item.active .service-arrow {
-            transform: rotate(180deg);
-        }
-        
-        .service-item.active .service-content {
-            max-height: 2000px;
-        }
-        
-        /* Стили для таблицы цен */
-        .price-table {
-            margin: 30px 0;
-            background-color: #222;
-            padding: 25px;
-            border-radius: 10px;
-            border-left: 4px solid #333;
-            border: 1px solid #333;
-        }
-        
-        .price-table h4 {
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-        }
-        
-        .price-table table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-        
-        .price-table th {
-            background-color: #333;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        .price-table td {
-            padding: 12px;
-            border-bottom: 1px solid #333;
-            color: #ccc;
-        }
-        
-        .price-table tr:nth-child(even) {
-            background-color: #1a1a1a;
-        }
-        
-        .price-table tr:hover {
-            background-color: #222222;
-        }
-        
-        .price-note {
-            font-size: 0.9rem;
-            color: #888;
-            font-style: italic;
-            margin-top: 10px;
-        }
-        
-        /* How It Works Section */
-        .how-it-works {
-            padding: 80px 0;
-            background-color: #111111;
-        }
-        
-        .steps {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-        
-        .step {
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-            padding: 0 20px;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background-color: #333;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .step h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-        
-        .step p {
-            color: #aaa;
-            line-height: 1.6;
-            font-size: 1.1rem;
-        }
-        
-        /* Why Us Section */
-        .why-us {
-            padding: 80px 0;
-            background-color: #0a0a0a;
-        }
-        
-        .why-us-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .why-us-card {
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            text-align: center;
-            border: 1px solid #333;
-        }
-        
-        .why-us-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
-        }
-        
-        .why-us-icon {
-            width: 80px;
-            height: 80px;
-            background-color: #333;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2.5rem;
-            color: white;
-        }
-        
-        .why-us-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-        
-        .why-us-card p {
-            color: #aaa;
-            line-height: 1.6;
-        }
-        
-        /* New: Subscriptions Section */
-        .subscriptions {
-            padding: 80px 0;
-            background-color: #111111;
-        }
-        
-        .subscriptions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .subscription-card {
-            background-color: #1a1a1a;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s ease;
-            position: relative;
-            border: 1px solid #333;
-        }
-        
-        .subscription-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.05);
-        }
-        
-        .subscription-card.popular {
-            border: 2px solid #444;
-            transform: scale(1.05);
-        }
-        
-        .subscription-card.popular:hover {
-            transform: scale(1.05) translateY(-15px);
-        }
-        
-        .popular-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: #333;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            z-index: 2;
-        }
-        
-        .subscription-header {
-            background: linear-gradient(135deg, #333, #444);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .subscription-header h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-        
-        .subscription-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        
-        .subscription-period {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        
-        .subscription-saving {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        
-        .subscription-body {
-            padding: 30px;
-        }
-        
-        .subscription-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .subscription-features li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .subscription-features li:before {
-            content: "✓";
-            color: #4CAF50;
-            font-weight: bold;
-            margin-right: 10px;
-            flex-shrink: 0;
-            font-size: 1.2rem;
-        }
-        
-        .subscription-features li.excluded:before {
-            content: "✕";
-            color: #f44336;
-        }
-        
-        .subscription-features li span {
-            color: #ccc;
-            line-height: 1.5;
-        }
-        
-        .subscription-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-        }
-        
-        .subscription-btn:hover {
-            background-color: #444;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .subscription-card.popular .subscription-btn {
-            background-color: #555;
-        }
-        
-        .subscription-card.popular .subscription-btn:hover {
-            background-color: #666;
-        }
-        
-        .subscription-note {
-            text-align: center;
-            margin-top: 30px;
-            color: #888;
-            font-size: 0.9rem;
-            padding: 0 20px;
-        }
-        
-        /* FAQ Section */
-        .faq {
-            padding: 80px 0;
-            background-color: #0a0a0a;
-        }
-        
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            margin-bottom: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid #333;
-        }
-        
-        .faq-question {
-            padding: 20px 25px;
-            background-color: #1a1a1a;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #ffffff;
-        }
-        
-        .faq-answer {
-            padding: 0 25px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background-color: #1a1a1a;
-        }
-        
-        .faq-answer p {
-            padding: 20px 0;
-            color: #aaa;
-            line-height: 1.7;
-        }
-        
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-        }
-        
-        .faq-item.active .faq-arrow {
-            transform: rotate(180deg);
-        }
-        
-        .faq-arrow {
-            transition: transform 0.3s ease;
-            color: #ccc;
-        }
-        
-        /* Чат-бот Section (ПК версия) */
-        .chat-bot {
-            padding: 80px 0;
-            background-color: #111111;
-        }
-        
-        .chat-container {
-            display: flex;
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #1a1a1a;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            height: 600px;
-            border: 1px solid #333;
-        }
-        
-        .chat-sidebar {
-            width: 300px;
-            background-color: #222;
-            color: white;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .chat-sidebar h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #ccc;
-        }
-        
-        .quick-questions {
-            margin-top: 20px;
-            flex-grow: 1;
-            overflow-y: auto;
-            max-height: 300px;
-        }
-        
-        .quick-question {
-            background-color: #333;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #ccc;
-            border: 1px solid #444;
-        }
-        
-        .quick-question:hover {
-            background-color: #444;
-            transform: translateX(5px);
-        }
-        
-        .chat-main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .chat-header {
-            padding: 20px 30px;
-            border-bottom: 1px solid #333;
-            display: flex;
-            align-items: center;
-        }
-        
-        .chat-avatar {
-            width: 50px;
-            height: 50px;
-            background-color: #333;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-            margin-right: 15px;
-        }
-        
-        .chat-info h3 {
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
-        
-        .chat-info p {
-            color: #888;
-            font-size: 0.9rem;
-        }
-        
-        .chat-messages {
-            flex-grow: 1;
-            padding: 25px;
-            overflow-y: auto;
-            background-color: #111;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-height: 400px;
-        }
-        
-        .message {
-            max-width: 70%;
-            padding: 15px;
-            border-radius: 15px;
-            line-height: 1.5;
-            position: relative;
-        }
-        
-        .message.bot {
-            background-color: #222;
-            border: 1px solid #333;
-            align-self: flex-start;
-            border-bottom-left-radius: 5px;
-            color: #ccc;
-        }
-        
-        .message.user {
-            background-color: #333;
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 5px;
-        }
-        
-        .message-time {
-            font-size: 0.7rem;
-            opacity: 0.7;
-            margin-top: 5px;
-            text-align: right;
-            color: #888;
-        }
-        
-        .chat-input-container {
-            padding: 20px 30px;
-            border-top: 1px solid #333;
-            display: flex;
-            gap: 15px;
-        }
-        
-        .chat-input {
-            flex-grow: 1;
-            padding: 12px 20px;
-            border: 1px solid #444;
-            border-radius: 25px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            background-color: #222;
-            color: #ccc;
-        }
-        
-        .chat-input:focus {
-            outline: none;
-            border-color: #555;
-        }
-        
-        .chat-send-btn {
-            background-color: #333;
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .chat-send-btn:hover {
-            background-color: #444;
-            transform: scale(1.05);
-        }
-        
-        .suggested-questions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-            padding: 0 30px 20px;
-        }
-        
-        .suggested-question {
-            background-color: #222;
-            color: #ccc;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid #333;
-        }
-        
-        .suggested-question:hover {
-            background-color: #333;
-            color: white;
-        }
-        
-        /* Мобильная версия чата (скрыта на ПК) */
-        .mobile-chat {
-            display: none;
-        }
-        
-        /* CTA Section */
-        .cta {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #222, #333);
-            color: white;
-            text-align: center;
-        }
-        
-        .cta h2 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .cta p {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0;
-            transform: translateY(30px);
-            color: #ccc;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .cta-btn {
-            display: inline-block;
-            background-color: #444;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.3s ease;
-            border: 1px solid #555;
-        }
-        
-        .cta-btn.secondary {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-        
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .cta-btn.secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #111;
-            color: white;
-            padding: 60px 0 30px;
-            border-top: 1px solid #333;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: #ccc;
-        }
-        
-        .footer-column p, .footer-column a {
-            color: #aaa;
-            margin-bottom: 10px;
-            display: block;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-column a:hover {
-            color: #ffffff;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: #ccc;
-        }
-        
-        .social-links a:hover {
-            background-color: #333;
-            transform: translateY(-3px);
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #333;
-            color: #888;
-            font-size: 0.9rem;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0 10px 10px;
-            }
-            
-            .phone {
-                margin-top: 15px;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-content h1 span {
-                font-size: 1.8rem;
-            }
-            
-            .steps {
-                flex-direction: column;
-                gap: 40px;
-            }
-            
-            .service-details {
-                grid-template-columns: 1fr;
-            }
-            
-            .service-header {
-                padding: 20px;
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .service-icon {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-            
-            .service-price {
-                margin-right: 0;
-                margin-top: 10px;
-            }
-            
-            .service-title h3 {
-                font-size: 1.4rem;
-            }
-            
-            .why-us-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .cta-btn {
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-            }
-            
-            .subscription-card.popular {
-                transform: scale(1);
-            }
-            
-            .subscription-card.popular:hover {
-                transform: translateY(-15px);
-            }
-            
-            .subscriptions-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .subscription-header h3 {
-                font-size: 1.6rem;
-            }
-            
-            .subscription-price {
-                font-size: 2rem;
-            }
-            
-            /* Адаптивность для таблицы цен */
-            .price-table {
-                padding: 15px;
-                overflow-x: auto;
-            }
-            
-            .price-table table {
-                min-width: 400px;
-            }
-            
-            .price-table th,
-            .price-table td {
-                padding: 8px;
-                font-size: 0.9rem;
-            }
-            
-            /* На мобильных скрываем ПК версию чата */
-            .chat-container {
-                display: none !important;
-            }
-            
-            /* Показываем мобильную версию */
-            .mobile-chat {
-                display: block;
-                max-width: 1000px;
-                margin: 0 auto;
-            }
-            
-            .mobile-chat-container {
-                background-color: #1a1a1a;
-                border-radius: 15px;
-                padding: 20px;
-                box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-                border: 1px solid #333;
-            }
-            
-            .mobile-chat-header {
-                display: flex;
-                align-items: center;
-                margin-bottom: 20px;
-                padding-bottom: 15px;
-                border-bottom: 1px solid #333;
-            }
-            
-            .mobile-chat-avatar {
-                width: 50px;
-                height: 50px;
-                background-color: #333;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.5rem;
-                color: white;
-                margin-right: 15px;
-            }
-            
-            .mobile-chat-info h3 {
-                color: #ffffff;
-                margin-bottom: 5px;
-                font-size: 1.3rem;
-            }
-            
-            .mobile-chat-info p {
-                color: #888;
-                font-size: 0.9rem;
-            }
-            
-            .mobile-chat-messages {
-                max-height: 250px;
-                min-height: 250px;
-                overflow-y: auto;
-                margin-bottom: 20px;
-                padding: 15px;
-                background-color: #111;
-                border-radius: 10px;
-                border: 1px solid #333;
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .mobile-message {
-                padding: 12px 15px;
-                border-radius: 15px;
-                line-height: 1.5;
-                max-width: 85%;
-                position: relative;
-            }
-            
-            .mobile-message.bot {
-                background-color: #222;
-                border: 1px solid #333;
-                color: #ccc;
-                align-self: flex-start;
-                border-bottom-left-radius: 5px;
-            }
-            
-            .mobile-message.user {
-                background-color: #333;
-                color: white;
-                align-self: flex-end;
-                border-bottom-right-radius: 5px;
-            }
-            
-            .mobile-message-time {
-                font-size: 0.7rem;
-                opacity: 0.7;
-                margin-top: 5px;
-                text-align: right;
-                color: #888;
-            }
-            
-            .mobile-quick-questions {
-                margin-bottom: 25px;
-            }
-            
-            .mobile-quick-question {
-                background-color: #333;
-                padding: 15px;
-                border-radius: 10px;
-                margin-bottom: 12px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                color: #ccc;
-                border: 1px solid #444;
-                font-size: 1rem;
-                text-align: center;
-            }
-            
-            .mobile-quick-question:active {
-                background-color: #444;
-                transform: scale(0.98);
-            }
-            
-            .mobile-chat-input-container {
-                display: flex;
-                gap: 10px;
-                margin-top: 20px;
-            }
-            
-            .mobile-chat-input {
-                flex-grow: 1;
-                padding: 12px 15px;
-                border: 1px solid #444;
-                border-radius: 25px;
-                font-size: 1rem;
-                background-color: #222;
-                color: #ccc;
-            }
-            
-            .mobile-chat-input:focus {
-                outline: none;
-                border-color: #555;
-            }
-            
-            .mobile-chat-send-btn {
-                background-color: #333;
-                color: white;
-                border: none;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 1.2rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .mobile-chat-send-btn:active {
-                background-color: #444;
-                transform: scale(0.95);
-            }
-            
-            .chat-bot {
-                padding: 40px 0;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrueShine — профессиональный клининг для вашего дома</title>
+
+  <style>
+    :root{
+      /* Цвета под эмблему (бирюза + песочно-золотой) */
+      --bg: #070a0a;
+      --bg2:#0e1414;
+      --card:#111a1a;
+      --card2:#0f1616;
+      --border:#1f2a2a;
+
+      --text:#f2f5f5;
+      --muted:#a9b2b2;
+
+      --accent:#0f7f6f;      /* бирюза */
+      --accent2:#d8b56a;     /* песочно-золотой */
+      --accent3:#1aa08f;
+
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    *{ margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
+    body{ background:var(--bg); color:var(--text); overflow-x:hidden; line-height:1.6; }
+
+    .container{ max-width:1200px; margin:0 auto; padding:0 20px; }
+
+    /* Header */
+    header{
+      background: rgba(10, 14, 14, 0.95);
+      box-shadow: 0 2px 10px rgba(0,0,0,.5);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .header-content{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding: 12px 0;
+      gap: 20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 260px;
+    }
+    .brand img{
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 10px 20px rgba(0,0,0,.35);
+      background: #000;
+    }
+    .logo{
+      font-size:1.6rem;
+      font-weight:700;
+      color:#fff;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      line-height: 1.05;
+    }
+    .logo span{
+      color: var(--accent2);
+      font-weight: 400;
+      font-size: .85rem;
+      display:block;
+      margin-top: 4px;
+      letter-spacing: .6px;
+      text-transform:none;
+    }
+
+    nav ul{ display:flex; list-style:none; flex-wrap:wrap; }
+    nav ul li{ margin-left:24px; }
+    nav ul li a{
+      text-decoration:none;
+      color: rgba(242,245,245,.78);
+      font-weight:600;
+      transition: color .25s ease;
+    }
+    nav ul li a:hover{ color: #fff; }
+
+    /* Hero */
+    .hero{
+      height: 100vh;
+      background:
+        linear-gradient(rgba(7,10,10,.75), rgba(7,10,10,.92)),
+        url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      margin-top: 72px;
+    }
+    .hero-content h1{
+      font-size: 3.2rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.15;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+      color:#fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .hero-content h1 span{
+      display:block;
+      font-size: 2.1rem;
+      color: rgba(255,255,255,.92);
+      margin-top: .55rem;
+      font-weight: 400;
+      text-transform:none;
+      letter-spacing: 0;
+    }
+    .start-btn{
+      display:inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      color: white;
+      padding: 14px 38px;
+      border-radius: 999px;
+      text-decoration:none;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-top: 1.6rem;
+      opacity:0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease .35s forwards;
+      transition: transform .25s ease, filter .25s ease;
+      box-shadow: 0 12px 30px rgba(15,127,111,.25);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .start-btn:hover{ transform: translateY(-3px); filter: brightness(1.05); }
+
+    /* Section common */
+    section{ padding: 80px 0; }
+    .section-title{
+      text-align:center;
+      margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .section-title h2{
+      font-size: 2.3rem;
+      color:#fff;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .section-title p{
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Benefits */
+    .benefits{ background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .benefits-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+      margin-top: 30px;
+    }
+    .benefit-card{
+      text-align:center;
+      padding: 28px 18px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(17,26,26,.95), rgba(12,18,18,.95));
+      border: 1px solid var(--border);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .benefit-card:hover{ transform: translateY(-10px); box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+    .benefit-icon{ font-size: 2.6rem; margin-bottom: 14px; color: var(--accent2); }
+    .benefit-card h3{ font-size: 1.25rem; margin-bottom: 10px; color:#fff; }
+    .benefit-card p{ color: var(--muted); }
+
+    /* Calculator */
+    .calculator{ background: var(--bg); }
+    .calc-wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, rgba(17,26,26,.92), rgba(12,18,18,.92));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .calc-head{
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      background: linear-gradient(135deg, rgba(15,127,111,.18), rgba(216,181,106,.10));
+    }
+    .calc-head h3{
+      font-size: 1.25rem;
+      letter-spacing: .4px;
+    }
+    .calc-body{
+      padding: 24px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+    }
+    .calc-form{
+      display:grid;
+      gap: 14px;
+    }
+    .field label{ display:block; font-weight:700; margin-bottom: 6px; color: rgba(242,245,245,.92); }
+    .field input, .field select{
+      width:100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(9,13,13,.7);
+      color: var(--text);
+      outline: none;
+    }
+    .field input:focus, .field select:focus{ border-color: rgba(15,127,111,.7); }
+    .checks{
+      display:grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .check{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(9,13,13,.45);
+    }
+    .check input{ margin-top: 3px; }
+    .check b{ color:#fff; }
+    .check span{ color: var(--muted); font-size:.92rem; display:block; margin-top: 2px; }
+
+    .calc-result{
+      border-left: 1px solid var(--border);
+      padding-left: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      justify-content:center;
+    }
+    .result-card{
+      background: rgba(9,13,13,.55);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .result-card .big{
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent2);
+      margin: 6px 0 8px;
+    }
+    .result-card .small{ color: var(--muted); font-size:.95rem; }
+    .calc-actions{
+      display:flex;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      cursor:pointer;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(17,26,26,.8);
+      color:#fff;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: transform .2s ease, background .2s ease;
+      text-align:center;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      border-color: rgba(255,255,255,.10);
+    }
+    .btn:hover{ transform: translateY(-2px); }
+
+    /* Services */
+    .services{ background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .services-container{ max-width: 1000px; margin: 0 auto; }
+    .service-item{
+      background: linear-gradient(180deg, rgba(17,26,26,.92), rgba(12,18,18,.92));
+      border-radius: 14px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform .25s ease;
+      border: 1px solid var(--border);
+      border-left: 4px solid rgba(15,127,111,.7);
+    }
+    .service-header{
+      padding: 22px 24px;
+      display:flex;
+      align-items:center;
+      cursor:pointer;
+      gap: 16px;
+      transition: background .25s ease;
+    }
+    .service-header:hover{ background: rgba(255,255,255,.03); }
+    .service-icon{
+      width: 62px; height: 62px;
+      background: radial-gradient(circle at 30% 30%, rgba(216,181,106,.35), rgba(15,127,111,.35));
+      border-radius: 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 1.9rem;
+      color: #fff;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .service-title{ flex-grow:1; }
+    .service-title h3{ font-size: 1.45rem; color:#fff; margin-bottom: 4px; }
+    .service-title p{ color: var(--muted); font-size: 1.03rem; }
+    .service-price{
+      background: rgba(15,127,111,.18);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      border: 1px solid rgba(15,127,111,.35);
+      white-space: nowrap;
+    }
+    .service-arrow{ font-size: 1.2rem; color: rgba(242,245,245,.75); transition: transform .25s ease; }
+    .service-content{
+      max-height: 0;
+      overflow:hidden;
+      transition: max-height .5s ease;
+      background: rgba(0,0,0,.08);
+      border-top: 1px solid var(--border);
+    }
+    .service-content-inner{ padding: 0 24px 24px; }
+    .service-description{ margin-top: 18px; color: rgba(242,245,245,.82); }
+    .service-details{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .included-list, .not-included-list{
+      background: rgba(9,13,13,.55);
+      padding: 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .included-list h4, .not-included-list h4{
+      color:#fff;
+      margin-bottom: 12px;
+      font-size: 1.15rem;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .included-list h4::before{ content:"✓"; color:#4CAF50; font-weight:900; }
+    .not-included-list h4::before{ content:"✕"; color:#f44336; font-weight:900; }
+    .included-list ul, .not-included-list ul{ padding-left: 18px; color: var(--muted); }
+    .included-list li, .not-included-list li{ margin-bottom: 8px; }
+
+    .service-item.active .service-arrow{ transform: rotate(180deg); }
+    .service-item.active .service-content{ max-height: 2500px; }
+
+    /* Price table */
+    .price-table{
+      margin: 18px 0 0;
+      background: rgba(9,13,13,.55);
+      padding: 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-left: 4px solid rgba(216,181,106,.65);
+    }
+    .price-table h4{ color:#fff; margin-bottom: 12px; font-size: 1.15rem; }
+    .price-table table{ width:100%; border-collapse:collapse; }
+    .price-table th{
+      background: rgba(216,181,106,.18);
+      color: #fff;
+      padding: 10px;
+      text-align:left;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .price-table td{
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      color: rgba(242,245,245,.85);
+    }
+    .price-note{ margin-top: 10px; color: rgba(242,245,245,.55); font-style: italic; font-size: .92rem; }
+
+    /* Kitchen extra (zones table) */
+    .kitchen-zones{
+      margin-top: 18px;
+      background: rgba(9,13,13,.55);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow:hidden;
+    }
+    .kitchen-zones table{ width:100%; border-collapse: collapse; }
+    .kitchen-zones th{
+      text-align:left;
+      padding: 12px;
+      background: rgba(15,127,111,.18);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .kitchen-zones td{
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      color: rgba(242,245,245,.85);
+      vertical-align: top;
+    }
+    .kitchen-zones tr:nth-child(even) td{ background: rgba(255,255,255,.02); }
+
+    /* How it works */
+    .how-it-works{ background: var(--bg); }
+    .steps{ display:flex; justify-content:space-between; flex-wrap:wrap; gap: 18px; margin-top: 30px; }
+    .step{
+      flex:1;
+      min-width: 220px;
+      text-align:center;
+      padding: 0 10px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .step-number{
+      width: 76px; height: 76px;
+      background: rgba(15,127,111,.18);
+      border: 1px solid rgba(15,127,111,.35);
+      color: #fff;
+      border-radius: 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 1.9rem;
+      font-weight: 900;
+      margin: 0 auto 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    .step h3{ font-size: 1.35rem; margin-bottom: 10px; color:#fff; }
+    .step p{ color: var(--muted); font-size: 1.03rem; }
+
+    /* Subscriptions */
+    .subscriptions{ background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .subscriptions-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin-top: 30px;
+    }
+    .subscription-card{
+      background: linear-gradient(180deg, rgba(17,26,26,.92), rgba(12,18,18,.92));
+      border-radius: 16px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease;
+      position:relative;
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .subscription-card:hover{ transform: translateY(-12px); box-shadow: 0 22px 50px rgba(0,0,0,.45); }
+    .subscription-card.popular{
+      border: 2px solid rgba(216,181,106,.55);
+      transform: scale(1.03);
+    }
+    .popular-badge{
+      position:absolute;
+      top: 14px; right: 14px;
+      background: rgba(216,181,106,.22);
+      color:#fff;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 900;
+      border: 1px solid rgba(216,181,106,.45);
+      z-index: 2;
+    }
+    .subscription-header{
+      background: linear-gradient(135deg, rgba(15,127,111,.35), rgba(216,181,106,.18));
+      color:#fff;
+      padding: 26px;
+      text-align:center;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .subscription-header h3{ font-size: 1.6rem; margin-bottom: 8px; }
+    .subscription-price{ font-size: 2.2rem; font-weight: 900; margin: 14px 0 6px; color: var(--accent2); }
+    .subscription-period{ font-size: 1rem; opacity: .9; color: rgba(242,245,245,.9); }
+    .subscription-saving{
+      background: rgba(255,255,255,.10);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .9rem;
+      display:inline-block;
+      margin-top: 10px;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .subscription-body{ padding: 22px 24px 24px; }
+    .subscription-features{ list-style:none; margin-bottom: 18px; }
+    .subscription-features li{ margin-bottom: 12px; display:flex; gap: 10px; align-items:flex-start; }
+    .subscription-features li::before{ content:"✓"; color:#4CAF50; font-weight:900; }
+    .subscription-features li.excluded::before{ content:"✕"; color:#f44336; }
+    .subscription-features li span{ color: rgba(242,245,245,.82); }
+    .subscription-btn{
+      display:block;
+      width:100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      color:#fff;
+      border: 0;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor:pointer;
+      text-align:center;
+      text-decoration:none;
+      transition: transform .2s ease, filter .2s ease;
+    }
+    .subscription-btn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+    .subscription-note{ text-align:center; margin-top: 20px; color: rgba(242,245,245,.55); font-size: .92rem; padding: 0 20px; }
+
+    /* FAQ */
+    .faq{ background: var(--bg); }
+    .faq-container{ max-width: 800px; margin: 0 auto; }
+    .faq-item{
+      margin-bottom: 14px;
+      border-radius: 14px;
+      overflow:hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,.3);
+      border: 1px solid var(--border);
+    }
+    .faq-question{
+      padding: 18px 20px;
+      background: rgba(17,26,26,.92);
+      cursor:pointer;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color:#fff;
+    }
+    .faq-answer{
+      padding: 0 20px;
+      max-height: 0;
+      overflow:hidden;
+      transition: max-height .3s ease;
+      background: rgba(12,18,18,.92);
+    }
+    .faq-answer p{ padding: 16px 0; color: var(--muted); }
+    .faq-item.active .faq-answer{ max-height: 500px; }
+    .faq-arrow{ transition: transform .25s ease; color: rgba(242,245,245,.75); }
+    .faq-item.active .faq-arrow{ transform: rotate(180deg); }
+
+    /* Chat */
+    .chat-bot{ background: var(--bg2); border-top: 1px solid var(--border); }
+    .chat-container{
+      display:flex;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(17,26,26,.92);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      height: 600px;
+      border: 1px solid var(--border);
+    }
+    .chat-sidebar{
+      width: 300px;
+      background: rgba(9,13,13,.7);
+      color:white;
+      padding: 22px;
+      display:flex;
+      flex-direction:column;
+      border-right: 1px solid var(--border);
+    }
+    .chat-sidebar h3{ font-size: 1.25rem; margin-bottom: 10px; color: rgba(242,245,245,.9); }
+    .chat-sidebar p{ color: rgba(242,245,245,.6); font-size: .95rem; }
+    .quick-questions{ margin-top: 14px; flex:1; overflow-y:auto; max-height: 420px; padding-right: 6px; }
+    .quick-question{
+      background: rgba(15,127,111,.12);
+      padding: 12px 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      cursor:pointer;
+      transition: transform .2s ease, background .2s ease;
+      color: rgba(242,245,245,.85);
+      border: 1px solid rgba(15,127,111,.22);
+      font-weight: 700;
+    }
+    .quick-question:hover{ background: rgba(15,127,111,.18); transform: translateX(5px); }
+
+    .chat-main{ flex-grow:1; display:flex; flex-direction:column; }
+    .chat-header{
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      background: rgba(9,13,13,.35);
+    }
+    .chat-avatar{
+      width: 46px; height: 46px;
+      background: rgba(216,181,106,.18);
+      border: 1px solid rgba(216,181,106,.25);
+      border-radius: 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 1.3rem;
+      color: white;
+    }
+    .chat-info h3{ color:#fff; margin-bottom: 2px; }
+    .chat-info p{ color: rgba(242,245,245,.55); font-size: .9rem; }
+
+    .chat-messages{
+      flex-grow:1;
+      padding: 18px;
+      overflow-y:auto;
+      background: rgba(7,10,10,.65);
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .message{
+      max-width: 72%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      line-height: 1.45;
+      position:relative;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .message.bot{
+      background: rgba(9,13,13,.6);
+      align-self:flex-start;
+      border-bottom-left-radius: 6px;
+      color: rgba(242,245,245,.85);
+    }
+    .message.user{
+      background: rgba(15,127,111,.18);
+      align-self:flex-end;
+      border-bottom-right-radius: 6px;
+      color: #fff;
+      border-color: rgba(15,127,111,.25);
+    }
+    .message-time{
+      font-size: .72rem;
+      opacity:.75;
+      margin-top: 6px;
+      text-align:right;
+      color: rgba(242,245,245,.55);
+    }
+
+    .chat-input-container{
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      display:flex;
+      gap: 12px;
+      background: rgba(9,13,13,.35);
+    }
+    .chat-input{
+      flex-grow:1;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      font-size: 1rem;
+      background: rgba(7,10,10,.6);
+      color: rgba(242,245,245,.9);
+      outline:none;
+    }
+    .chat-input:focus{ border-color: rgba(15,127,111,.6); }
+    .chat-send-btn{
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      color:#fff;
+      border:0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor:pointer;
+      transition: transform .2s ease, filter .2s ease;
+      font-size: 1.1rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .chat-send-btn:hover{ transform: scale(1.05); filter: brightness(1.05); }
+
+    .suggested-questions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      padding: 0 18px 16px;
+      background: rgba(9,13,13,.35);
+      border-top: 1px solid rgba(255,255,255,.04);
+    }
+    .suggested-question{
+      background: rgba(216,181,106,.14);
+      color: rgba(242,245,245,.9);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: .92rem;
+      cursor:pointer;
+      transition: background .2s ease, transform .2s ease;
+      border: 1px solid rgba(216,181,106,.22);
+    }
+    .suggested-question:hover{ background: rgba(216,181,106,.20); transform: translateY(-1px); }
+
+    /* Mobile chat */
+    .mobile-chat{ display:none; }
+
+    /* CTA */
+    .cta{
+      padding: 90px 0;
+      background: linear-gradient(135deg, rgba(15,127,111,.35), rgba(216,181,106,.18));
+      color: white;
+      text-align:center;
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .cta h2{ font-size: 2.5rem; margin-bottom: 14px; opacity:0; transform: translateY(30px); }
+    .cta p{
+      font-size: 1.15rem;
+      margin-bottom: 26px;
+      max-width: 760px;
+      margin-left:auto;
+      margin-right:auto;
+      opacity:0;
+      transform: translateY(30px);
+      color: rgba(242,245,245,.85);
+    }
+    .cta-buttons{ display:flex; justify-content:center; gap: 14px; flex-wrap: wrap; }
+    .cta-btn{
+      display:inline-block;
+      background: rgba(7,10,10,.35);
+      color: white;
+      padding: 13px 26px;
+      border-radius: 999px;
+      text-decoration:none;
+      font-size: 1.05rem;
+      font-weight: 900;
+      opacity:0;
+      transform: translateY(30px);
+      transition: transform .2s ease, background .2s ease;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .cta-btn:hover{ transform: translateY(-2px); background: rgba(7,10,10,.45); }
+
+    /* Footer */
+    footer{
+      background: var(--bg2);
+      color:white;
+      padding: 56px 0 26px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-content{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 26px;
+    }
+    .footer-column h3{ font-size: 1.25rem; margin-bottom: 14px; color: rgba(242,245,245,.9); }
+    .footer-column p, .footer-column a{
+      color: rgba(242,245,245,.65);
+      margin-bottom: 8px;
+      display:block;
+      text-decoration:none;
+      transition: color .2s ease;
+    }
+    .footer-column a:hover{ color:#fff; }
+    .social-links{ display:flex; gap: 12px; margin-top: 10px; }
+    .social-links a{
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,.08);
+      border-radius: 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition: transform .2s ease, background .2s ease;
+      color: rgba(242,245,245,.85);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .social-links a:hover{ background: rgba(15,127,111,.22); transform: translateY(-2px); color:#fff; }
+    .copyright{
+      text-align:center;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: rgba(242,245,245,.55);
+      font-size: .9rem;
+    }
+
+    /* Animation */
+    @keyframes fadeInUp{
+      from{ opacity:0; transform: translateY(20px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px){
+      .header-content{ flex-direction: column; text-align:center; }
+      .brand{ justify-content:center; }
+      nav ul{ margin-top: 10px; justify-content:center; }
+      nav ul li{ margin: 0 10px 10px; }
+
+      .hero-content h1{ font-size: 2.35rem; }
+      .hero-content h1 span{ font-size: 1.65rem; }
+
+      .service-details{ grid-template-columns: 1fr; }
+      .service-header{ flex-direction: column; text-align:center; }
+      .service-price{ margin-top: 8px; }
+
+      .steps{ flex-direction: column; }
+      .subscriptions-grid{ grid-template-columns: 1fr; max-width: 420px; margin-left:auto; margin-right:auto; }
+      .subscription-card.popular{ transform: scale(1); }
+
+      .calc-body{ grid-template-columns: 1fr; }
+      .calc-result{ border-left: 0; padding-left: 0; }
+
+      /* hide desktop chat */
+      .chat-container{ display:none !important; }
+
+      /* show mobile chat */
+      .mobile-chat{ display:block; max-width: 1000px; margin: 0 auto; }
+      .mobile-chat-container{
+        background: rgba(17,26,26,.92);
+        border-radius: 16px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+      }
+      .mobile-chat-header{
+        display:flex;
+        align-items:center;
+        gap: 12px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .mobile-chat-avatar{
+        width: 46px; height: 46px;
+        background: rgba(216,181,106,.18);
+        border: 1px solid rgba(216,181,106,.25);
+        border-radius: 50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size: 1.3rem;
+      }
+      .mobile-chat-info h3{ color:#fff; margin-bottom: 2px; font-size: 1.2rem; }
+      .mobile-chat-info p{ color: rgba(242,245,245,.55); font-size: .9rem; }
+
+      .mobile-chat-messages{
+        max-height: 260px;
+        min-height: 260px;
+        overflow-y:auto;
+        margin-bottom: 14px;
+        padding: 12px;
+        background: rgba(7,10,10,.65);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        display:flex;
+        flex-direction:column;
+        gap: 12px;
+      }
+      .mobile-message{
+        padding: 10px 12px;
+        border-radius: 14px;
+        line-height: 1.45;
+        max-width: 88%;
+        border: 1px solid rgba(255,255,255,.08);
+      }
+      .mobile-message.bot{
+        background: rgba(9,13,13,.6);
+        color: rgba(242,245,245,.85);
+        align-self:flex-start;
+        border-bottom-left-radius: 6px;
+      }
+      .mobile-message.user{
+        background: rgba(15,127,111,.18);
+        color: #fff;
+        align-self:flex-end;
+        border-bottom-right-radius: 6px;
+        border-color: rgba(15,127,111,.25);
+      }
+      .mobile-message-time{
+        font-size: .72rem;
+        opacity:.75;
+        margin-top: 6px;
+        text-align:right;
+        color: rgba(242,245,245,.55);
+      }
+      .mobile-quick-questions{ margin-bottom: 14px; }
+      .mobile-quick-question{
+        background: rgba(15,127,111,.12);
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        cursor:pointer;
+        border: 1px solid rgba(15,127,111,.22);
+        color: rgba(242,245,245,.85);
+        text-align:center;
+        font-weight: 800;
+      }
+      .mobile-chat-input-container{
+        display:flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .mobile-chat-input{
+        flex:1;
+        padding: 12px 14px;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 999px;
+        font-size: 1rem;
+        background: rgba(7,10,10,.6);
+        color: rgba(242,245,245,.9);
+        outline:none;
+      }
+      .mobile-chat-send-btn{
+        background: linear-gradient(135deg, var(--accent), var(--accent3));
+        color:#fff;
+        border:0;
+        width: 48px; height: 48px;
+        border-radius: 50%;
+        cursor:pointer;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">TrueShine<br><span>YOUR HOME OUR PRIORITY</span></div>
-                <nav>
-                    <ul>
-                        <li><a href="#services">Услуги</a></li>
-                        <li><a href="#how-it-works">Как работаем</a></li>
-                        <li><a href="#subscriptions">Подписки</a></li>
-                        <li><a href="#faq">Вопросы</a></li>
-                        <li><a href="#chat-bot">Помощник</a></li>
-                        <li><a href="#contacts">Контакты</a></li>
-                    </ul>
-                </nav>
-            </div>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="brand">
+          <!-- Эмблема (положите файл logo.jpg рядом с html) -->
+          <img src="C:\Users\User\Downloads\Copilot_20260123_133612.png" alt="TrueShine logo">
+          <div class="logo">TrueShine<span>YOUR HOME OUR PRIORITY</span></div>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>TrueShine<br><span>Your Home our Priority</span></h1>
-                <a href="#services" class="start-btn">START</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Benefits Section -->
-    <section class="benefits">
-        <div class="container">
-            <div class="section-title">
-                <h2>Почему выбирают нас</h2>
-                <p>Мы заботимся о вашем комфорте и предоставляем услуги высшего качества</p>
-            </div>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">⏱️</div>
-                    <h3>Экономия времени</h3>
-                    <p>Освободите до 10 часов в неделю, доверив уборку профессионалам</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🧼</div>
-                    <h3>Профессиональные средства</h3>
-                    <p>Используем только безопасные и эффективные чистящие средства</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">👩‍💼</div>
-                    <h3>Опытные клинеры</h3>
-                    <p>Наши специалисты проходят тщательный отбор и обучение</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">💰</div>
-                    <h3>Доступные цены</h3>
-                    <p>Предлагаем оптимальное соотношение цены и качества услуг</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Наши услуги</h2>
-                <p>Широкий спектр клининговых услуг для дома и офиса</p>
-            </div>
-            <div class="services-container">
-                <!-- Экспресс уборка -->
-                <div class="service-item">
-                    <div class="service-header">
-                        <div class="service-icon">⚡</div>
-                        <div class="service-title">
-                            <h3>Экспресс уборка</h3>
-                            <p>Быстрая уборка основных зон для поддержания чистоты</p>
-                        </div>
-                        <div class="service-price">от 70 BYN</div>
-                        <div class="service-arrow">▼</div>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-content-inner">
-                            <div class="service-description">
-                                <p>Экспресс-уборка — это «скорая помощь» для вашего дома. Она не заменяет генеральную уборку, но является отличным инструментом для поддержания повседневной чистоты и комфорта в сжатые сроки. Это самый популярный и доступный вид уборки для регулярного заказа.</p>
-                                <p>Экспресс-уборка обычно сосредоточена на основных жилых зонах: гостиная, кухня, санузел.</p>
-                                
-                                <div class="price-table">
-                                    <h4>Стоимость экспресс-уборки:</h4>
-                                    <table>
-                                        <tr>
-                                            <th>Площадь помещения</th>
-                                            <th>Стоимость</th>
-                                        </tr>
-                                        <tr>
-                                            <td>до 50 м²</td>
-                                            <td><strong>70 BYN</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>50 - 100 м²</td>
-                                            <td><strong>120 BYN</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>100 - 150 м²</td>
-                                            <td><strong>180 BYN</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>свыше 150 м²</td>
-                                            <td><strong>индивидуальный расчет</strong></td>
-                                        </tr>
-                                    </table>
-                                    <p class="price-note">*В стоимость включены все моющие средства и оборудование</p>
-                                </div>
-                            </div>
-                            <div class="service-details">
-                                <div class="included-list">
-                                    <h4>Что входит</h4>
-                                    <ul>
-                                        <li>Сбор и вынос мусора по всем комнатам</li>
-                                        <li>Раскладывание вещей по местам</li>
-                                        <li>Протирка пыли с открытых поверхностей</li>
-                                        <li>Пылесосение ковров и ковровых покрытий</li>
-                                        <li>Влажная уборка полов в проходных зонах</li>
-                                        <li>Заправка кроватей</li>
-                                    </ul>
-                                </div>
-                                <div class="not-included-list">
-                                    <h4>Что не входит</h4>
-                                    <ul>
-                                        <li>Мытье окон</li>
-                                        <li>Чистка духовки, микроволновки изнутри</li>
-                                        <li>Перемещение тяжелой мебели</li>
-                                        <li>Мытье люстр и светильников</li>
-                                        <li>Чистка ковров и мягкой мебели</li>
-                                        <li>Удаление сложных загрязнений</li>
-                                        <li>Мытье стен и потолков</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Генеральная уборка -->
-                <div class="service-item">
-                    <div class="service-header">
-                        <div class="service-icon">🏠</div>
-                        <div class="service-title">
-                            <h3>Генеральная уборка</h3>
-                            <p>Полная уборка всех помещений с тщательной очисткой</p>
-                        </div>
-                        <div class="service-price">от 100 BYN</div>
-                        <div class="service-arrow">▼</div>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-content-inner">
-                            <div class="service-description">
-                                <p>Генеральная уборка — это "перезагрузка" чистоты в вашем доме или офисе. Она возвращает пространству первоначальный вид, обеспечивает гигиену и создает ощущение полного порядка.</p>
-                                <p>Рекомендуется проводить 1-4 раза в год (например, по сезонам). Это тотальная уборка, которая охватывает ВСЕ поверхности, включая труднодоступные и те, что игнорируются в повседневности.</p>
-                                
-                                <div class="price-table">
-                                    <h4>Стоимость генеральной уборки:</h4>
-                                    <table>
-                                        <tr>
-                                            <th>Площадь помещения</th>
-                                            <th>Стоимость</th>
-                                        </tr>
-                                        <tr>
-                                            <td>до 50 м²</td>
-                                            <td><strong>100 BYN</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>от 50 до 100 м²</td>
-                                            <td><strong>150 BYN</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>от 100 до 150 м²</td>
-                                            <td><strong>220 BYN</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>свыше 150 м²</td>
-                                            <td><strong>индивидуальный расчет</strong></td>
-                                        </tr>
-                                    </table>
-                                    <p class="price-note">*В стоимость включены все моющие средства и оборудование</p>
-                                </div>
-                            </div>
-                            <div class="service-details">
-                                <div class="included-list">
-                                    <h4>Что входит</h4>
-                                    <ul>
-                                        <li>Удаление паутины с углов и потолочных плинтусов</li>
-                                        <li>Чистка светильников и люстр</li>
-                                        <li>Протирка стен от пыли, пятен и следов</li>
-                                        <li>Мытье выключателей и розеток</li>
-                                        <li>Мытье стекол, зеркал и подоконников</li>
-                                        <li>Мытье межкомнатных и входной дверей</li>
-                                        <li>Тщательная протирка всех поверхностей мебели</li>
-                                        <li>Чистка сантехники с дезинфицирующими средствами</li>
-                                        <li>Мытье кафеля на стенах и полу</li>
-                                        <li>Тщательное мытье полов с моющими средствами</li>
-                                        <li>Мытье плинтусов по всему периметру</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Уборка после ремонта -->
-                <div class="service-item">
-                    <div class="service-header">
-                        <div class="service-icon">🏢</div>
-                        <div class="service-title">
-                            <h3>Уборка после ремонта</h3>
-                            <p>Удаление строительной пыли и мусора после ремонтных работ</p>
-                        </div>
-                        <div class="service-price">от 200 BYN</div>
-                        <div class="service-arrow">▼</div>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-content-inner">
-                            <div class="service-description">
-                                <p>Вот подробный список того, что входит в генеральную уборку после ремонта. Как правило, она проводится в 2-3 этапа.</p>
-                                <p>Мы используем профессиональное оборудование и средства: строительные пылесосы с фильтрами, парогенераторы, специальные химические составы для удаления конкретных видов загрязнений.</p>
-                            </div>
-                            <div class="service-details">
-                                <div class="included-list">
-                                    <h4>Этапы уборки</h4>
-                                    <ul>
-                                        <li><strong>Этап 1 (Грубая уборка):</strong> Вынос строительного мусора, удаление крупных загрязнений</li>
-                                        <li><strong>Этап 2 (Детальная уборка):</strong> Мытье окон, рам, стен, потолков, полов, отопительных систем</li>
-                                        <li><strong>Этап 3 (Финальная уборка):</strong> Уборка мельчайшей пыли, дезинфекция, очистка воздуха</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Уход за поверхностями и мебелью -->
-                <div class="service-item">
-                    <div class="service-header">
-                        <div class="service-icon">🛋️</div>
-                        <div class="service-title">
-                            <h3>Уход за поверхностями и мебелью</h3>
-                            <p>Специализированные услуги по уходу за различными поверхностями</p>
-                        </div>
-                        <div class="service-price">от 80 BYN</div>
-                        <div class="service-arrow">▼</div>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-content-inner">
-                            <div class="service-description">
-                                <p>Это узкоспециализированные услуги, за которые клиенты готовы платить больше. Мы предлагаем профессиональный уход за различными поверхностями и мебелью с использованием специального оборудования и средств.</p>
-                            </div>
-                            <div class="service-details">
-                                <div class="included-list">
-                                    <h4>Услуги</h4>
-                                    <ul>
-                                        <li>Химчистка мягкой мебели (диваны, кресла, матрасы)</li>
-                                        <li>Химчистка ковров и ковролина</li>
-                                        <li>Чистка жалюзи и рулонных штор</li>
-                                        <li>Мойка люстр и светильников</li>
-                                        <li>Полировка мебели (деревянной, стеклянной, из искусственной кожи)</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <div class="section-title">
-                <h2>Как мы работаем</h2>
-                <p>Простой процесс для вашего удобства</p>
-            </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Оставьте заявку</h3>
-                    <p>Позвоните нам по телефону. Наш менеджер ответит на все ваши вопросы и поможет подобрать подходящую услугу.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Подтверждение</h3>
-                    <p>Наш менеджер свяжется с вами для уточнения деталей: площади помещения, особых пожеланий, удобного времени визита нашей команды.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Уборка</h3>
-                    <p>Наша команда профессионально выполнит все работы в оговоренные сроки. Мы используем только качественные средства и оборудование.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Результат</h3>
-                    <p>Вы наслаждаетесь идеальной чистотой в вашем помещении. Мы гарантируем качество выполненных работ и ваше полное удовлетворение.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Subscriptions Section -->
-    <section class="subscriptions" id="subscriptions">
-        <div class="container">
-            <div class="section-title">
-                <h2>Выгодные подписки</h2>
-                <p>Регулярная уборка по фиксированной цене с дополнительными бонусами</p>
-            </div>
-            <div class="subscriptions-grid">
-                <!-- Базовый пакет -->
-                <div class="subscription-card">
-                    <div class="subscription-header">
-                        <h3>Базовый</h3>
-                        <p>Для поддержания чистоты</p>
-                        <div class="subscription-price">110 BYN<span class="subscription-period">/месяц</span></div>
-                    </div>
-                    <div class="subscription-body">
-                        <ul class="subscription-features">
-                            <li><span>2 экспресс-уборки в месяц</span></li>
-                            <li><span>До 50 м² за один визит</span></li>
-                            <li><span>Стандартные моющие средства</span></li>
-                            <li><span>Пылесос и влажная уборка</span></li>
-                            <li><span>Уборка кухни и санузла</span></li>
-                            <li class="excluded"><span>Генеральная уборка</span></li>
-                            <li class="excluded"><span>Мытье окон</span></li>
-                            <li class="excluded"><span>Химчистка мебели</span></li>
-                        </ul>
-                        <a href="#chat-bot" class="subscription-btn">Выбрать тариф</a>
-                    </div>
-                </div>
-                
-                <!-- Популярный пакет -->
-                <div class="subscription-card popular">
-                    <div class="popular-badge">ПОПУЛЯРНО</div>
-                    <div class="subscription-header">
-                        <h3>Комфорт</h3>
-                        <p>Для идеальной чистоты</p>
-                        <div class="subscription-price">190 BYN<span class="subscription-period">/месяц</span></div>
-                        <div class="subscription-saving">Экономия до 20%</div>
-                    </div>
-                    <div class="subscription-body">
-                        <ul class="subscription-features">
-                            <li><span>4 экспресс-уборки в месяц</span></li>
-                            <li><span>До 80 м² за один визит</span></li>
-                            <li><span>Экологичные премиум-средства</span></li>
-                            <li><span>1 генеральная уборка в квартал</span></li>
-                            <li><span>Мытье окон 2 раза в год</span></li>
-                            <li><span>Бесплатная отмена до 24 часов</span></li>
-                            <li><span>Приоритетное обслуживание</span></li>
-                            <li class="excluded"><span>Химчистка мебели</span></li>
-                        </ul>
-                        <a href="#chat-bot" class="subscription-btn">Выбрать тариф</a>
-                    </div>
-                </div>
-                
-                <!-- Премиум пакет -->
-                <div class="subscription-card">
-                    <div class="subscription-header">
-                        <h3>Премиум</h3>
-                        <p>Для максимального комфорта</p>
-                        <div class="subscription-price">350 BYN<span class="subscription-period">/месяц</span></div>
-                        <div class="subscription-saving">Экономия до 30%</div>
-                    </div>
-                    <div class="subscription-body">
-                        <ul class="subscription-features">
-                            <li><span>Еженедельная уборка (4 раза)</span></li>
-                            <li><span>До 120 м² за один визит</span></li>
-                            <li><span>Индивидуальный набор средств</span></li>
-                            <li><span>1 генеральная уборка в месяц</span></li>
-                            <li><span>Мытье окон 4 раза в год</span></li>
-                            <li><span>Химчистка 1 предмета мебели в год</span></li>
-                            <li><span>Персональный менеджер</span></li>
-                            <li><span>Экстренная уборка в подарок</span></li>
-                        </ul>
-                        <a href="#chat-bot" class="subscription-btn">Выбрать тариф</a>
-                    </div>
-                </div>
-            </div>
-            <div class="subscription-note">
-                *Все подписки включают бесплатный выезд оценщика. Цены указаны для стандартных условий. 
-                Возможна корректировка в зависимости от площади и дополнительных услуг.
-            </div>
-        </div>
-    </section>
-    
-    <!-- FAQ Section -->
-    <section class="faq" id="faq">
-        <div class="container">
-            <div class="section-title">
-                <h2>Часто задаваемые вопросы</h2>
-                <p>Ответы на самые популярные вопросы о наших услугах</p>
-            </div>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Как долго длится уборка?</span>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Время уборки зависит от типа услуги и площади помещения. Экспресс-уборка обычно занимает 2-3 часа, генеральная уборка - 4-6 часов, уборка после ремонта может занять целый день. Точное время менеджер сможет сказать после уточнения деталей.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Нужно ли мне предоставлять моющие средства и оборудование?</span>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Нет, наши клинеры приезжают со всем необходимым: профессиональным оборудованием и полным набором безопасных моющих средств. Если у вас есть особые пожелания или аллергия на определенные средства, сообщите об этом нашему менеджеру при оформлении заказа.</p>
-                    </div>
-                </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Что делать, если мне что-то не понравилось в уборке?</span>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Мы гарантируем качество наших услуг. Если результат уборки вас не устроил, просто свяжитесь с нашим менеджером и опишите проблему.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Как рассчитывается стоимость уборки?</span>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Стоимость зависит от типа уборки, площади помещения, степени загрязнения и дополнительных услуг. Мы предлагаем прозрачное ценообразование - вы всегда знаете, за что платите. Точную стоимость менеджер рассчитает после уточнения всех деталей.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Чат-бот Section -->
-    <section class="chat-bot" id="chat-bot">
-        <div class="container">
-            <div class="section-title">
-                <h2>Помощник по уборке</h2>
-                <p>Задайте вопрос нашему виртуальному помощнику и получите мгновенный ответ</p>
-            </div>
-            
-            <!-- Полная версия для ПК -->
-            <div class="chat-container">
-                <div class="chat-sidebar">
-                    <h3>Быстрые вопросы</h3>
-                    <p>Выберите один из популярных вопросов:</p>
-                    <div class="quick-questions">
-                        <div class="quick-question" data-question="Какая уборка подойдет для квартиры 50 м²?">
-                            Какая уборка для квартиры 50 м²?
-                        </div>
-                        <div class="quick-question" data-question="Сколько стоит генеральная уборка?">
-                            Сколько стоит генеральная уборка?
-                        </div>
-                        <div class="quick-question" data-question="Какие средства вы используете?">
-                            Какие средства используете?
-                        </div>
-                        <div class="quick-question" data-question="Как быстро можно заказать уборку?">
-                            Как быстро заказать уборку?
-                        </div>
-                        <div class="quick-question" data-question="Что входит в экспресс-уборку?">
-                            Что входит в экспресс-уборку?
-                        </div>
-                        <div class="quick-question" data-question="Есть ли скидка на первый заказ?">
-                            Есть ли скидка на первый заказ?
-                        </div>
-                        <div class="quick-question" data-question="Можно ли убрать только кухню?">
-                            Можно убрать только кухню?
-                        </div>
-                        <div class="quick-question" data-question="Как оплачивать услуги?">
-                            Как оплачивать услуги?
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-main">
-                    <div class="chat-header">
-                        <div class="chat-avatar">🤖</div>
-                        <div class="chat-info">
-                            <h3>Помощник TrueShine</h3>
-                            <p>Отвечу на ваши вопросы 24/7</p>
-                        </div>
-                    </div>
-                    <div class="chat-messages" id="chatMessages">
-                        <!-- Сообщения будут добавляться здесь через JavaScript -->
-                    </div>
-                    <div class="chat-input-container">
-                        <input type="text" class="chat-input" id="chatInput" placeholder="Введите ваш вопрос...">
-                        <button class="chat-send-btn" id="chatSendBtn">➤</button>
-                    </div>
-                    <div class="suggested-questions">
-                        <div class="suggested-question" data-question="Что такое генеральная уборка?">Генеральная уборка</div>
-                        <div class="suggested-question" data-question="Сколько времени занимает уборка?">Время уборки</div>
-                        <div class="suggested-question" data-question="Можно ли убрать квартиру после ремонта?">После ремонта</div>
-                        <div class="suggested-question" data-question="Какие гарантии вы предоставляете?">Наши гарантии</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Мобильная версия (скрыта на ПК) -->
-            <div class="mobile-chat">
-                <div class="mobile-chat-container">
-                    <div class="mobile-chat-header">
-                        <div class="mobile-chat-avatar">🤖</div>
-                        <div class="mobile-chat-info">
-                            <h3>Помощник TrueShine</h3>
-                            <p>Отвечу на ваши вопросы 24/7</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mobile-chat-messages" id="mobileChatMessages">
-                        <!-- Сообщения для мобильной версии -->
-                    </div>
-                    
-                    <div class="mobile-quick-questions">
-                        <div class="mobile-quick-question" data-question="Какая уборка подойдет для квартиры 50 м²?">
-                            Какая уборка для квартиры 50 м²?
-                        </div>
-                        <div class="mobile-quick-question" data-question="Сколько стоит генеральная уборка?">
-                            Сколько стоит генеральная уборка?
-                        </div>
-                        <div class="mobile-quick-question" data-question="Какие средства вы используете?">
-                            Какие средства используете?
-                        </div>
-                        <div class="mobile-quick-question" data-question="Как быстро можно заказать уборку?">
-                            Как быстро заказать уборку?
-                        </div>
-                        <div class="mobile-quick-question" data-question="Что входит в экспресс-уборку?">
-                            Что входит в экспресс-уборку?
-                        </div>
-                        <div class="mobile-quick-question" data-question="Есть ли скидка на первый заказ?">
-                            Есть ли скидка на первый заказ?
-                        </div>
-                    </div>
-                    
-                    <div class="mobile-chat-input-container">
-                        <input type="text" class="mobile-chat-input" id="mobileChatInput" placeholder="Введите ваш вопрос...">
-                        <button class="mobile-chat-send-btn" id="mobileChatSendBtn">➤</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <h2>Готовы начать?</h2>
-            <p>Закажите уборку прямо сейчас! Наслаждайтесь чистотой и свободным временем уже завтра.</p>
-            <div class="cta-buttons">
-                <a href="#chat-bot" class="cta-btn">Задать вопрос помощнику</a>
-            </div>
-        </div>
-    </section>
-    
-    <footer id="contacts">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>TrueShine</h3>
-                    <p>Профессиональный клининг для вашего дома и офиса. Доверьте уборку профессионалам и наслаждайтесь свободным временем!</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/oootrueshine?igsh=MjViNWIwOXk3MWl0">IG</a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Контакты</h3>
-                    <p> ООО «ТруШайн» </p>
-                    <p> УНП : 193935003 </p>
-                    <p>+ 375 (25) 908-51-27 </p>
-                    <p>+ 375 (33) 684-88-44 </p>
-                    <p>г. Минск </p>
-                    <p> График работы : с 9.00 - 22.00 </p>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>© 2025 TrueShine. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
-    
-    <script>
-        // База знаний для чат-бота (общая для обеих версий)
-        const knowledgeBase = {
-            // Общие вопросы
-            "привет": {
-                answer: "Здравствуйте! Я помогу вам с вопросами по уборке. Что вас интересует?",
-                suggestions: ["Какие услуги вы предлагаете?", "Сколько стоит уборка?", "Как заказать уборку?", "Расскажите о подписках"]
-            },
-            "здравствуйте": {
-                answer: "Добрый день! Я виртуальный помощник клининговой компании 'TrueShine'. Чем могу помочь?",
-                suggestions: ["Виды уборки", "Цены", "Как работает ваша компания?", "Подписки и абонементы"]
-            },
-            "пока": {
-                answer: "До свидания! Если появятся вопросы - обращайтесь. Чистого вам дома!",
-                suggestions: []
-            },
-            
-            // Услуги
-            "какие услуги": {
-                answer: "Мы предлагаем: 1) Экспресс-уборка, 2) Генеральная уборка, 3) Уборка после ремонта, 4) Уход за поверхностями и мебелью. Также есть выгодные подписки на регулярную уборку. Подробнее на странице 'Услуги'.",
-                suggestions: ["Что входит в экспресс-уборку?", "Чем отличается генеральная уборка?", "Расскажите о подписках"]
-            },
-            "экспресс уборка": {
-                answer: "Экспресс-уборка — быстрая уборка основных зон для поддержания чистоты. Включает: сбор мусора, протирку пыли, пылесос, влажную уборку полов, уборку на кухне и в санузле. Стоимость: до 50 м² - 70 BYN, 50-100 м² - 120 BYN, 100-150 м² - 180 BYN. Входит в состав всех подписок.",
-                suggestions: ["Что входит в экспресс-уборку?", "Сколько стоит?", "Как долго длится?", "Подписки с экспресс-уборкой"]
-            },
-            "генеральная уборка": {
-                answer: "Генеральная уборка — полная тотальная уборка всех поверхностей. Включает: мытье окон, чистку светильников, протирку стен, мытье дверей и мебели, чистку сантехники с дезинфекцией. Стоимость: до 50 м² - 100 BYN, 50-100 м² - 150 BYN, 100-150 м² - 220 BYN. Включена в подписки 'Комфорт' и 'Премиум'.",
-                suggestions: ["Что входит в генеральную уборку?", "Сколько времени занимает?", "Какова стоимость?", "Подписки с генеральной уборкой"]
-            },
-            "уборка после ремонта": {
-                answer: "Уборка после ремонта проводится в 3 этапа: 1) Вынос строительного мусора, 2) Детальная уборка всех поверхностей, 3) Финальная уборка и дезинфекция. Используем специальное оборудование для удаления строительной пыли. Стоимость от 200 BYN.",
-                suggestions: ["Какое оборудование используете?", "Сколько стоит?", "Нужно ли готовить помещение?"]
-            },
-            
-            // Подписки
-            "подписка": {
-                answer: "Мы предлагаем 3 варианта подписок: 1) Базовый (110 BYN/мес) - 2 экспресс-уборки, 2) Комфорт (190 BYN/мес) - 4 уборки + генеральная раз в квартал, 3) Премиум (350 BYN/мес) - еженедельная уборка + дополнительные услуги. Экономия до 30% по сравнению с разовыми заказами.",
-                suggestions: ["Что входит в подписку Комфорт?", "Есть ли скидки на подписки?", "Можно ли отменить подписку?", "Как оформить подписку?"]
-            },
-            
-            "подписки": {
-                answer: "У нас есть 3 тарифных плана подписки с фиксированной ежемесячной оплатой: Базовый, Комфорт (самый популярный) и Премиум. Подписка экономит до 30% по сравнению с разовыми заказами. Каждая подписка включает определенное количество уборок и дополнительные услуги.",
-                suggestions: ["Сколько стоит подписка?", "Что входит в подписку?", "Как оформить подписку?", "Преимущества подписки"]
-            },
-            
-            "тариф": {
-                answer: "Тарифы подписок: 1) Базовый - 110 BYN/мес (2 уборки), 2) Комфорт - 190 BYN/мес (4 уборки + бонусы), 3) Премиум - 350 BYN/мес (все включено). При подписке вы экономите время и деньги, получая приоритетное обслуживание и дополнительные услуги.",
-                suggestions: ["Какой тариф выбрать для квартиры 60м²?", "Можно ли изменить тариф?", "Есть ли пробный период?", "Что входит в каждый тариф?"]
-            },
-            
-            // Цены
-            "сколько стоит": {
-                answer: "Стоимость зависит от: 1) Типа уборки, 2) Площади помещения. Экспресс-уборка: до 50 м² - 70 BYN, 50-100 м² - 120 BYN, 100-150 м² - 180 BYN. Генеральная: до 50 м² - 100 BYN, 50-100 м² - 150 BYN, 100-150 м² - 220 BYN. Подписки: Базовый - 110 BYN/мес, Комфорт - 190 BYN/мес, Премиум - 350 BYN/мес.",
-                suggestions: ["Как рассчитывается стоимость?", "Есть ли скидки?", "Что влияет на цену?", "Выгодны ли подписки?"]
-            },
-            "цена": {
-                answer: "Цены на наши услуги: Экспресс-уборка: до 50 м² - 70 BYN, 50-100 м² - 120 BYN, 100-150 м² - 180 BYN. Генеральная уборка: до 50 м² - 100 BYN, 50-100 м² - 150 BYN, 100-150 м² - 220 BYN. Подписки: Базовый - 110 BYN/мес, Комфорт - 190 BYN/мес, Премиум - 350 BYN/мес. Первая уборка со скидкой 10%!",
-                suggestions: ["Скидка на первую уборку", "Акции и спецпредложения", "Оплата", "Подписки и их стоимость"]
-            },
-            "скидка": {
-                answer: "Да! При оформлении подписки вы получаете скидку до 30% по сравнению с разовыми заказами. Также действует скидка 10% на первый заказ для новых клиентов. Подписчики получают дополнительные бонусы: мытье окон, химчистку мебели и персонального менеджера.",
-                suggestions: ["Как получить скидку?", "Акции для постоянных клиентов", "Подарочные сертификаты", "Скидки при подписке"]
-            },
-            
-            // Процесс работы
-            "как заказать": {
-                answer: "Заказать уборку можно: По телефону + 375 (25) 908-51-27 или + 375 (33) 684-88-44. Для подписки свяжитесь с менеджером для индивидуального расчета. Менеджер свяжется для уточнения деталей.",
-                suggestions: ["Нужна ли предоплата?", "Как рассчитывается время?", "Можно ли отменить заказ?", "Как оформить подписку?"]
-            },
-            "сколько времени": {
-                answer: "Время уборки зависит от площади и типа уборки. Подписчики получают приоритет при бронировании времени. Мы приезжаем в удобное для вас время.",
-                suggestions: ["Можно ли в выходные?", "Работаете ли в праздники?", "Сколько человек приедет?", "График уборок по подписке"]
-            },
-            
-            // Качество и гарантии
-            "гарантия": {
-                answer: "Мы гарантируем качество! Используем только безопасные сертифицированные средства. При появлении различных проблем и вопросов обращаться к менеджеру.",
-                suggestions: ["Какие средства используете?", "Что если что-то не понравится?", "Опыт клинеров", "Гарантии для подписчиков"]
-            },
-            "средства": {
-                answer: "Используем профессиональные экологичные средства ведущих брендов. Все средства безопасны для детей и животных, имеют сертификаты качества.",
-                suggestions: ["Безопасны ли средства?", "Можно ли использовать свои средства?", "Аллергия на средства", "Средства для подписчиков"]
-            },
-            
-            // Дополнительные вопросы
-            "можно ли только кухню": {
-                answer: "Да, можно заказать уборку отдельных помещений! ",
-                suggestions: ["Уборка санузла", "Уборка гостиной", "Комплексная уборка", "Что входит в подписку"]
-            },
-            "оплата": {
-                answer: "Оплатить можно: наличными клинеру после уборки, банковской картой, через ЕРИП, переводом на расчетный счет. Для подписок доступна ежемесячная автоматическая оплата картой. Выставляем все необходимые документы.",
-                suggestions: ["Нужна ли предоплата?", "Можно ли оплатить картой?", "Документы", "Оплата подписок"]
-            },
-            
-            // Ответ по умолчанию
-            "default": {
-                answer: "Извините, я не совсем понял ваш вопрос. Можете перефразировать или задать другой вопрос? Я хорошо разбираюсь в услугах уборки, ценах, подписках и процессе работы.",
-                suggestions: ["Какие услуги вы предлагаете?", "Сколько стоит уборка?", "Как заказать уборку?", "Расскажите о подписках"]
-            }
-        };
+        <nav>
+          <ul>
+            <li><a href="#calculator">Калькулятор</a></li>
+            <li><a href="#services">Услуги</a></li>
+            <li><a href="#how-it-works">Как работаем</a></li>
+            <li><a href="#subscriptions">Подписки</a></li>
+            <li><a href="#faq">Вопросы</a></li>
+            <li><a href="#chat-bot">Помощник</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-        // Синонимы для лучшего распознавания
-        const synonyms = {
-            "привет": ["привет", "здравствуйте", "добрый день", "добрый вечер", "здрасьте", "хай", "hello", "hi"],
-            "экспресс уборка": ["экспресс уборка", "быстрая уборка", "повседневная уборка", "регулярная уборка", "ежедневная уборка"],
-            "генеральная уборка": ["генеральная уборка", "полная уборка", "тщательная уборка", "глубокая уборка", "капитальная уборка"],
-            "подписка": ["подписка", "абонемент", "тариф", "пакет", "программа", "регулярная уборка", "подписки", "абонементы", "подписка на уборку"],
-            "тариф": ["тариф", "пакет", "план", "вариант", "подписка", "комплекс", "тарифный план"],
-            "сколько стоит": ["сколько стоит", "цена", "стоимость", "ценник", "сколько", "какая цена", "сколько денег", "стоит"],
-            "как заказать": ["как заказать", "заказать", "оформить заказ", "сделать заказ", "записаться", "забронировать"]
-        };
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>TrueShine<br><span>Ваш дом — наш приоритет</span></h1>
+        <a href="#calculator" class="start-btn">РАССЧИТАТЬ СТОИМОСТЬ</a>
+      </div>
+    </div>
+  </section>
 
-        // Основной код
-        document.addEventListener('DOMContentLoaded', function() {
-            // ПРОВЕРЯЕМ, МОБИЛЬНОЕ ЛИ УСТРОЙСТВО
-            const isMobile = window.innerWidth <= 768;
-            
-            if (isMobile) {
-                // ЗАПУСКАЕМ МОБИЛЬНУЮ ВЕРСИЮ
-                initMobileChat();
-            } else {
-                // ЗАПУСКАЕМ ПК ВЕРСИЮ
-                initDesktopChat();
+  <!-- Benefits -->
+  <section class="benefits">
+    <div class="container">
+      <div class="section-title">
+        <h2>Почему выбирают нас</h2>
+        <p>Мы заботимся о вашем комфорте и предоставляем услуги высокого качества</p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">⏱️</div>
+          <h3>Экономия времени</h3>
+          <p>Освободите часы в неделю, доверив уборку профессионалам</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🧼</div>
+          <h3>Проф. средства</h3>
+          <p>Безопасные и эффективные составы, подходящие для семьи</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">👩‍💼</div>
+          <h3>Опытные клинеры</h3>
+          <p>Отбор и обучение, контроль качества</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h3>Прозрачные цены</h3>
+          <p>Понятный прайс и подписки с экономией</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="calculator" id="calculator">
+    <div class="container">
+      <div class="section-title">
+        <h2>Калькулятор стоимости</h2>
+        <p>Примерный расчёт по площади (м²). Итог зависит от состояния и доп. услуг.</p>
+      </div>
+
+      <div class="calc-wrap">
+        <div class="calc-head">
+          <h3>Общий калькулятор по метру квадратному (BYN)</h3>
+          <div style="color:rgba(242,245,245,.7); font-weight:700;">TrueShine • Минск</div>
+        </div>
+
+        <div class="calc-body">
+          <div class="calc-form">
+            <div class="field">
+              <label for="calcType">Тип уборки</label>
+              <select id="calcType">
+                <option value="express">Экспресс</option>
+                <option value="standard" selected>Стандартная</option>
+                <option value="general">Генеральная</option>
+                <option value="post">После ремонта</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="calcArea">Площадь (м²)</label>
+              <input id="calcArea" type="number" min="10" step="1" value="50" />
+            </div>
+
+            <div class="checks">
+              <label class="check">
+                <input id="optWindows" type="checkbox" />
+                <div>
+                  <b>Окна</b>
+                  <span>+15% к стоимости</span>
+                </div>
+              </label>
+
+              <label class="check">
+                <input id="optPets" type="checkbox" />
+                <div>
+                  <b>Шерсть / животные</b>
+                  <span>+10%</span>
+                </div>
+              </label>
+
+              <label class="check">
+                <input id="optHeavy" type="checkbox" />
+                <div>
+                  <b>Сильные загрязнения</b>
+                  <span>+20%</span>
+                </div>
+              </label>
+
+              <label class="check">
+                <input id="optUrgent" type="checkbox" />
+                <div>
+                  <b>Срочно (в ближайшие 24ч)</b>
+                  <span>+15%</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="calc-actions">
+              <button class="btn primary" id="calcBtn" type="button">Посчитать</button>
+              <a class="btn" href="#chat-bot">Уточнить у помощника</a>
+            </div>
+
+            <div style="color:rgba(242,245,245,.55); font-size:.92rem;">
+              Базовые ставки (примерно): Экспресс 1.6 BYN/м², Стандарт 2.2 BYN/м², Генеральная 3.0 BYN/м², После ремонта 4.2 BYN/м².
+            </div>
+          </div>
+
+          <div class="calc-result">
+            <div class="result-card">
+              <div style="font-weight:900; letter-spacing:.3px;">Итого (примерно)</div>
+              <div class="big" id="calcTotal">— BYN</div>
+              <div class="small" id="calcBreakdown">Введите параметры и нажмите «Посчитать».</div>
+            </div>
+
+            <div class="result-card">
+              <div style="font-weight:900; letter-spacing:.3px;">Как заказать</div>
+              <div class="small">
+                Тел.: +375 (25) 908-51-27<br>
+                Тел.: +375 (33) 684-88-44
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Наши услуги</h2>
+        <p>Широкий спектр клининговых услуг для дома и офиса</p>
+      </div>
+
+      <div class="services-container">
+
+        <!-- Экспресс уборка -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">⚡</div>
+            <div class="service-title">
+              <h3>Экспресс уборка</h3>
+              <p>Быстрая уборка основных зон для поддержания чистоты</p>
+            </div>
+            <div class="service-price">от 70 BYN</div>
+            <div class="service-arrow">▼</div>
+          </div>
+
+          <div class="service-content">
+            <div class="service-content-inner">
+              <div class="service-description">
+                <p>Экспресс-уборка — «скорая помощь» для дома. Подходит для регулярного поддержания чистоты.</p>
+
+                <div class="price-table">
+                  <h4>Стоимость экспресс-уборки</h4>
+                  <table>
+                    <tr><th>Площадь</th><th>Стоимость</th></tr>
+                    <tr><td>до 50 м²</td><td><strong>70 BYN</strong></td></tr>
+                    <tr><td>50–100 м²</td><td><strong>120 BYN</strong></td></tr>
+                    <tr><td>100–150 м²</td><td><strong>180 BYN</strong></td></tr>
+                    <tr><td>свыше 150 м²</td><td><strong>индивидуально</strong></td></tr>
+                  </table>
+                  <p class="price-note">*Включены средства и оборудование</p>
+                </div>
+              </div>
+
+              <div class="service-details">
+                <div class="included-list">
+                  <h4>Что входит</h4>
+                  <ul>
+                    <li>Сбор и вынос мусора</li>
+                    <li>Раскладывание вещей по местам</li>
+                    <li>Протирка пыли с открытых поверхностей</li>
+                    <li>Пылесос (ковры/покрытия)</li>
+                    <li>Влажная уборка полов в проходных зонах</li>
+                    <li>Заправка кроватей</li>
+                  </ul>
+                </div>
+                <div class="not-included-list">
+                  <h4>Что не входит</h4>
+                  <ul>
+                    <li>Мытье окон</li>
+                    <li>Чистка духовки/микроволновки внутри</li>
+                    <li>Перемещение тяжелой мебели</li>
+                    <li>Мытье люстр</li>
+                    <li>Химчистка мебели/ковров</li>
+                    <li>Сложные загрязнения</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Генеральная уборка -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🏠</div>
+            <div class="service-title">
+              <h3>Генеральная уборка</h3>
+              <p>Полная уборка всех помещений с тщательной очисткой</p>
+            </div>
+            <div class="service-price">от 100 BYN</div>
+            <div class="service-arrow">▼</div>
+          </div>
+
+          <div class="service-content">
+            <div class="service-content-inner">
+              <div class="service-description">
+                <p>Генеральная уборка — «перезагрузка» чистоты: тщательная проработка поверхностей и труднодоступных зон.</p>
+
+                <div class="price-table">
+                  <h4>Стоимость генеральной уборки</h4>
+                  <table>
+                    <tr><th>Площадь</th><th>Стоимость</th></tr>
+                    <tr><td>до 50 м²</td><td><strong>100 BYN</strong></td></tr>
+                    <tr><td>50–100 м²</td><td><strong>150 BYN</strong></td></tr>
+                    <tr><td>100–150 м²</td><td><strong>220 BYN</strong></td></tr>
+                    <tr><td>свыше 150 м²</td><td><strong>индивидуально</strong></td></tr>
+                  </table>
+                  <p class="price-note">*Включены средства и оборудование</p>
+                </div>
+              </div>
+
+              <div class="service-details">
+                <div class="included-list">
+                  <h4>Что входит</h4>
+                  <ul>
+                    <li>Удаление паутины</li>
+                    <li>Чистка светильников</li>
+                    <li>Протирка стен (пыль/следы)</li>
+                    <li>Мытье выключателей/розеток</li>
+                    <li>Мытье стекол/зеркал/подоконников</li>
+                    <li>Мытье дверей</li>
+                    <li>Протирка мебели</li>
+                    <li>Сантехника + дезинфекция</li>
+                    <li>Кафель/полы/плинтусы</li>
+                  </ul>
+                </div>
+                <div class="not-included-list">
+                  <h4>Часто отдельно</h4>
+                  <ul>
+                    <li>Сильные застарелые загрязнения</li>
+                    <li>Химчистка мебели</li>
+                    <li>Мытье окон снаружи (если нужен доступ)</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Уборка после ремонта -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🏢</div>
+            <div class="service-title">
+              <h3>Уборка после ремонта</h3>
+              <p>Удаление строительной пыли и мусора</p>
+            </div>
+            <div class="service-price">от 200 BYN</div>
+            <div class="service-arrow">▼</div>
+          </div>
+
+          <div class="service-content">
+            <div class="service-content-inner">
+              <div class="service-description">
+                <p>Уборка после ремонта проводится в несколько этапов и требует спец. оборудования (строительный пылесос, спец. химия).</p>
+              </div>
+
+              <div class="service-details">
+                <div class="included-list">
+                  <h4>Этапы</h4>
+                  <ul>
+                    <li><strong>Этап 1:</strong> вынос мусора, грубая уборка</li>
+                    <li><strong>Этап 2:</strong> детальная уборка поверхностей</li>
+                    <li><strong>Этап 3:</strong> финальная уборка/дезинфекция</li>
+                  </ul>
+                </div>
+                <div class="not-included-list">
+                  <h4>Важно</h4>
+                  <ul>
+                    <li>Цена зависит от объёма пыли и материалов</li>
+                    <li>Может потребоваться 2 визита</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Уход за поверхностями и мебелью -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🛋️</div>
+            <div class="service-title">
+              <h3>Уход за поверхностями и мебелью</h3>
+              <p>Химчистка и специализированные услуги</p>
+            </div>
+            <div class="service-price">от 80 BYN</div>
+            <div class="service-arrow">▼</div>
+          </div>
+
+          <div class="service-content">
+            <div class="service-content-inner">
+              <div class="service-description">
+                <p>Профессиональный уход за мебелью и поверхностями с использованием спец. средств и оборудования.</p>
+              </div>
+
+              <div class="service-details">
+                <div class="included-list">
+                  <h4>Услуги</h4>
+                  <ul>
+                    <li>Химчистка мягкой мебели</li>
+                    <li>Химчистка ковров/ковролина</li>
+                    <li>Чистка жалюзи/штор</li>
+                    <li>Мойка люстр</li>
+                    <li>Полировка мебели</li>
+                  </ul>
+                </div>
+                <div class="not-included-list">
+                  <h4>Уточнение</h4>
+                  <ul>
+                    <li>Цена зависит от материала и степени загрязнения</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- НОВОЕ: Уборка кухни -->
+        <div class="service-item" id="kitchen">
+          <div class="service-header">
+            <div class="service-icon">🍳</div>
+            <div class="service-title">
+              <h3>Уборка кухни</h3>
+              <p>Фасады, техника, фартук, жир, раковина — аккуратно и безопасно</p>
+            </div>
+            <div class="service-price">80—200 BYN</div>
+            <div class="service-arrow">▼</div>
+          </div>
+
+          <div class="service-content">
+            <div class="service-content-inner">
+              <div class="service-description">
+                <p>Кухня — самая сложная зона по загрязнениям (жир, налёт, запахи). Мы делаем как стандартную уборку кухни, так и генеральную со сложными загрязнениями. Отдельные позиции (духовка/холодильник внутри, вытяжка с фильтрами, окна) — по запросу.</p>
+
+                <div class="price-table">
+                  <h4>Прайс по кухне (примерный диапазон)</h4>
+                  <table>
+                    <tr><th>Услуга</th><th>Примерный диапазон цен (BYN)</th></tr>
+                    <tr><td>Стандартная уборка кухни (без сложных допов)</td><td><strong>80 — 120</strong></td></tr>
+                    <tr><td>Генеральная уборка (со сложными загрязнениями)</td><td><strong>120 — 200</strong></td></tr>
+                    <tr><td>Чистка духовки (внутри)</td><td><strong>15 — 30</strong></td></tr>
+                    <tr><td>Чистка холодильника (внутри)</td><td><strong>15 — 25</strong></td></tr>
+                    <tr><td>Чистка вытяжки (с демонтажом фильтров)</td><td><strong>20 — 40</strong></td></tr>
+                    <tr><td>Мытье окон (с 2 сторон)</td><td><strong>5 — 10 за створку</strong></td></tr>
+                  </table>
+                  <p class="price-note">*Точная стоимость зависит от размеров кухни, степени загрязнения и количества техники.</p>
+                </div>
+
+                <div class="kitchen-zones">
+                  <table>
+                    <tr>
+                      <th style="width:32%;">Зона / Поверхность</th>
+                      <th>Что делают</th>
+                    </tr>
+                    <tr>
+                      <td><strong>Мебель</strong></td>
+                      <td>Моют фасады, корпуса, ручки внутри и снаружи, удаляют жир и загрязнения. Чистят вытяжку (фильтры — часто отдельно).</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Техника</strong></td>
+                      <td>Снаружи: плита, духовка, холодильник, микроволновка. Внутри: духовка и холодильник — по запросу (обычно доплата).</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Поверхности</strong></td>
+                      <td>Моют фартук, столешницу, подоконник, радиаторы отопления.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Сантехника</strong></td>
+                      <td>Чистят раковину и смеситель до блеска, удаляют известковый налёт и следы брызг.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Пол и стены</strong></td>
+                      <td>Моют пол и плинтусы. При необходимости — стены (обычно до уровня вытяжки, где скапливается жир).</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Окна</strong></td>
+                      <td>Часто в базу входит внутренняя часть стёкол и подоконник. Снаружи и рамы — за доплату.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Дополнительно</strong></td>
+                      <td>Вынос мусора, сухая чистка мягкой мебели, чистка осветительных приборов (по согласованию).</td>
+                    </tr>
+                  </table>
+                </div>
+
+              </div>
+
+              <div class="service-details">
+                <div class="included-list">
+                  <h4>Обычно входит</h4>
+                  <ul>
+                    <li>Фасады и ручки (снаружи)</li>
+                    <li>Фартук и столешница</li>
+                    <li>Раковина и смеситель</li>
+                    <li>Плита снаружи</li>
+                    <li>Пол и плинтусы</li>
+                  </ul>
+                </div>
+                <div class="not-included-list">
+                  <h4>Часто отдельно</h4>
+                  <ul>
+                    <li>Духовка внутри</li>
+                    <li>Холодильник внутри</li>
+                    <li>Вытяжка с фильтрами</li>
+                    <li>Окна снаружи/рамы</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-title">
+        <h2>Как мы работаем</h2>
+        <p>Простой процесс для вашего удобства</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Оставьте заявку</h3>
+          <p>Позвоните нам — менеджер поможет подобрать услугу.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Подтверждение</h3>
+          <p>Уточняем площадь, пожелания и удобное время визита.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Уборка</h3>
+          <p>Команда приезжает с оборудованием и выполняет работы.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Результат</h3>
+          <p>Вы наслаждаетесь чистотой. Гарантируем качество.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscriptions -->
+  <section class="subscriptions" id="subscriptions">
+    <div class="container">
+      <div class="section-title">
+        <h2>Выгодные подписки</h2>
+        <p>Регулярная уборка по фиксированной цене с бонусами</p>
+      </div>
+
+      <div class="subscriptions-grid">
+        <div class="subscription-card">
+          <div class="subscription-header">
+            <h3>Базовый</h3>
+            <p>Для поддержания чистоты</p>
+            <div class="subscription-price">110 BYN <span class="subscription-period">/месяц</span></div>
+          </div>
+          <div class="subscription-body">
+            <ul class="subscription-features">
+              <li><span>2 экспресс-уборки в месяц</span></li>
+              <li><span>До 50 м² за один визит</span></li>
+              <li><span>Стандартные средства</span></li>
+              <li><span>Кухня и санузел</span></li>
+              <li class="excluded"><span>Генеральная уборка</span></li>
+              <li class="excluded"><span>Мытье окон</span></li>
+              <li class="excluded"><span>Химчистка мебели</span></li>
+            </ul>
+            <a href="#chat-bot" class="subscription-btn">Выбрать тариф</a>
+          </div>
+        </div>
+
+        <div class="subscription-card popular">
+          <div class="popular-badge">ПОПУЛЯРНО</div>
+          <div class="subscription-header">
+            <h3>Комфорт</h3>
+            <p>Для идеальной чистоты</p>
+            <div class="subscription-price">190 BYN <span class="subscription-period">/месяц</span></div>
+            <div class="subscription-saving">Экономия до 20%</div>
+          </div>
+          <div class="subscription-body">
+            <ul class="subscription-features">
+              <li><span>4 экспресс-уборки в месяц</span></li>
+              <li><span>До 80 м² за один визит</span></li>
+              <li><span>Премиум эко-средства</span></li>
+              <li><span>1 генеральная уборка в квартал</span></li>
+              <li><span>Мытье окон 2 раза в год</span></li>
+              <li><span>Бесплатная отмена до 24 часов</span></li>
+              <li class="excluded"><span>Химчистка мебели</span></li>
+            </ul>
+            <a href="#chat-bot" class="subscription-btn">Выбрать тариф</a>
+          </div>
+        </div>
+
+        <div class="subscription-card">
+          <div class="subscription-header">
+            <h3>Премиум</h3>
+            <p>Для максимального комфорта</p>
+            <div class="subscription-price">350 BYN <span class="subscription-period">/месяц</span></div>
+            <div class="subscription-saving">Экономия до 30%</div>
+          </div>
+          <div class="subscription-body">
+            <ul class="subscription-features">
+              <li><span>Еженедельная уборка (4 раза)</span></li>
+              <li><span>До 120 м² за один визит</span></li>
+              <li><span>Индивидуальный набор средств</span></li>
+              <li><span>1 генеральная уборка в месяц</span></li>
+              <li><span>Мытье окон 4 раза в год</span></li>
+              <li><span>Химчистка 1 предмета мебели в год</span></li>
+              <li><span>Персональный менеджер</span></li>
+              <li><span>Экстренная уборка в подарок</span></li>
+            </ul>
+            <a href="#chat-bot" class="subscription-btn">Выбрать тариф</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="subscription-note">
+        *Все подписки включают бесплатный выезд оценщика. Цены могут корректироваться по площади и доп. услугам.
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-title">
+        <h2>Часто задаваемые вопросы</h2>
+        <p>Ответы на популярные вопросы о наших услугах</p>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Как долго длится уборка?</span>
+            <div class="faq-arrow">▼</div>
+          </div>
+          <div class="faq-answer">
+            <p>Зависит от типа и площади: экспресс обычно 2–3 часа, генеральная 4–6 часов, после ремонта — дольше. Точное время скажет менеджер.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Нужно ли предоставлять средства и оборудование?</span>
+            <div class="faq-arrow">▼</div>
+          </div>
+          <div class="faq-answer">
+            <p>Нет. Мы приезжаем со всем необходимым. Если есть аллергии/пожелания — сообщите заранее.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Что делать, если что-то не понравилось?</span>
+            <div class="faq-arrow">▼</div>
+          </div>
+          <div class="faq-answer">
+            <p>Свяжитесь с менеджером и опишите проблему — мы решим вопрос и проконтролируем качество.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Как рассчитывается стоимость?</span>
+            <div class="faq-arrow">▼</div>
+          </div>
+          <div class="faq-answer">
+            <p>Зависит от типа уборки, площади, степени загрязнения и доп. услуг. Для удобства — используйте калькулятор выше.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat-bot -->
+  <section class="chat-bot" id="chat-bot">
+    <div class="container">
+      <div class="section-title">
+        <h2>Помощник по уборке</h2>
+        <p>Задайте вопрос и получите быстрый ответ</p>
+      </div>
+
+      <!-- Desktop -->
+      <div class="chat-container">
+        <div class="chat-sidebar">
+          <h3>Быстрые вопросы</h3>
+          <p>Выберите один из популярных:</p>
+
+          <div class="quick-questions">
+            <div class="quick-question" data-question="Какая уборка подойдет для квартиры 50 м²?">Какая уборка для 50 м²?</div>
+            <div class="quick-question" data-question="Сколько стоит генеральная уборка?">Сколько стоит генеральная уборка?</div>
+            <div class="quick-question" data-question="Какие средства вы используете?">Какие средства используете?</div>
+            <div class="quick-question" data-question="Как быстро можно заказать уборку?">Как быстро заказать уборку?</div>
+            <div class="quick-question" data-question="Что входит в экспресс-уборку?">Что входит в экспресс?</div>
+            <div class="quick-question" data-question="Есть ли скидка на первый заказ?">Скидка на первый заказ?</div>
+            <div class="quick-question" data-question="Можно ли убрать только кухню?">Можно убрать только кухню?</div>
+            <div class="quick-question" data-question="Сколько стоит уборка кухни?">Сколько стоит уборка кухни?</div>
+          </div>
+        </div>
+
+        <div class="chat-main">
+          <div class="chat-header">
+            <div class="chat-avatar">🤖</div>
+            <div class="chat-info">
+              <h3>Помощник TrueShine</h3>
+              <p>Отвечу на ваши вопросы 24/7</p>
+            </div>
+          </div>
+
+          <div class="chat-messages" id="chatMessages"></div>
+
+          <div class="chat-input-container">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Введите ваш вопрос..." />
+            <button class="chat-send-btn" id="chatSendBtn">➤</button>
+          </div>
+
+          <div class="suggested-questions">
+            <div class="suggested-question" data-question="Что такое генеральная уборка?">Генеральная</div>
+            <div class="suggested-question" data-question="Сколько времени занимает уборка?">Время</div>
+            <div class="suggested-question" data-question="Можно ли убрать квартиру после ремонта?">После ремонта</div>
+            <div class="suggested-question" data-question="Сколько стоит уборка кухни?">Кухня</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile -->
+      <div class="mobile-chat">
+        <div class="mobile-chat-container">
+          <div class="mobile-chat-header">
+            <div class="mobile-chat-avatar">🤖</div>
+            <div class="mobile-chat-info">
+              <h3>Помощник TrueShine</h3>
+              <p>Отвечу на ваши вопросы 24/7</p>
+            </div>
+          </div>
+
+          <div class="mobile-chat-messages" id="mobileChatMessages"></div>
+
+          <div class="mobile-quick-questions">
+            <div class="mobile-quick-question" data-question="Сколько стоит уборка кухни?">Сколько стоит уборка кухни?</div>
+            <div class="mobile-quick-question" data-question="Что входит в экспресс-уборку?">Что входит в экспресс?</div>
+            <div class="mobile-quick-question" data-question="Сколько стоит генеральная уборка?">Сколько стоит генеральная?</div>
+            <div class="mobile-quick-question" data-question="Какие средства вы используете?">Какие средства?</div>
+          </div>
+
+          <div class="mobile-chat-input-container">
+            <input type="text" class="mobile-chat-input" id="mobileChatInput" placeholder="Введите ваш вопрос..." />
+            <button class="mobile-chat-send-btn" id="mobileChatSendBtn">➤</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Готовы начать?</h2>
+      <p>Закажите уборку прямо сейчас! Наслаждайтесь чистотой и свободным временем уже завтра.</p>
+      <div class="cta-buttons">
+        <a href="#chat-bot" class="cta-btn">Задать вопрос помощнику</a>
+        <a href="#calculator" class="cta-btn">Рассчитать стоимость</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contacts">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>TrueShine</h3>
+          <p>Профессиональная уборка для дома и офиса. Доверьте уборку профессионалам и наслаждайтесь свободным временем!</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/oootrueshine?igsh=MjViNWIwOXk3MWl0" target="_blank" rel="noopener">IG</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Контакты</h3>
+          <p>ООО «ТруШайн»</p>
+          <p>УНП: 193935003</p>
+          <p>+375 (25) 908-51-27</p>
+          <p>+375 (33) 684-88-44</p>
+          <p>г. Минск</p>
+          <p>График: 9:00 — 22:00</p>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>© 2025 TrueShine. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ====== Калькулятор ======
+    const rates = {
+      express: 1.6,
+      standard: 2.2,
+      general: 3.0,
+      post: 4.2
+    };
+
+    function formatBYN(n){
+      return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(n) + " BYN";
+    }
+
+    function calcTotal(){
+      const type = document.getElementById('calcType').value;
+      const area = Math.max(0, Number(document.getElementById('calcArea').value || 0));
+
+      let k = 1;
+      const windows = document.getElementById('optWindows').checked;
+      const pets = document.getElementById('optPets').checked;
+      const heavy = document.getElementById('optHeavy').checked;
+      const urgent = document.getElementById('optUrgent').checked;
+
+      if (windows) k *= 1.15;
+      if (pets) k *= 1.10;
+      if (heavy) k *= 1.20;
+      if (urgent) k *= 1.15;
+
+      const base = rates[type] * area;
+      const total = Math.round(base * k);
+
+      const parts = [];
+      parts.push(`Ставка: ${rates[type]} BYN/м²`);
+      parts.push(`Площадь: ${area} м²`);
+      parts.push(`Коэффициент: x${k.toFixed(2)}`);
+
+      document.getElementById('calcTotal').textContent = area ? formatBYN(total) : "— BYN";
+      document.getElementById('calcBreakdown').textContent = area ? parts.join(" • ") : "Введите площадь.";
+    }
+
+    document.getElementById('calcBtn').addEventListener('click', calcTotal);
+
+    // Автопересчёт при изменениях
+    ['calcType','calcArea','optWindows','optPets','optHeavy','optUrgent'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.addEventListener('change', calcTotal);
+      if(el && el.tagName === 'INPUT') el.addEventListener('input', calcTotal);
+    });
+
+    // ====== Аккордеоны услуг ======
+    document.querySelectorAll('.service-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.parentElement.classList.toggle('active');
+      });
+    });
+
+    // ====== FAQ ======
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+    });
+
+    // ====== Плавная прокрутка ======
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = link.getAttribute('href');
+        const target = document.querySelector(id);
+        if(target){
+          window.scrollTo({ top: target.offsetTop - 84, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ====== Анимации при скролле ======
+    const animated = document.querySelectorAll('.section-title, .service-item, .step, .benefit-card, .cta h2, .cta p, .cta-btn, .subscription-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.style.animation = 'fadeInUp 1s ease forwards';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    animated.forEach(el => observer.observe(el));
+
+    // ====== Чат-бот (упрощённая база + добавлена кухня) ======
+    const knowledgeBase = {
+      hello: {
+        answer: "Здравствуйте! Я помощник TrueShine. Спросите про услуги, цены, подписки или уборку кухни.",
+        suggestions: ["Сколько стоит уборка?", "Сколько стоит уборка кухни?", "Какие услуги вы предлагаете?", "Как заказать уборку?"]
+      },
+      services: {
+        answer: "Мы предлагаем: экспресс-уборку, генеральную, после ремонта, уход за мебелью/поверхностями и уборку кухни.",
+        suggestions: ["Что входит в экспресс-уборку?", "Сколько стоит генеральная уборка?", "Сколько стоит уборка кухни?"]
+      },
+      price: {
+        answer: "Экспресс: 70/120/180 BYN (до 50 / 50–100 / 100–150 м²). Генеральная: 100/150/220 BYN. После ремонта: от 200 BYN. Также есть подписки 110/190/350 BYN.",
+        suggestions: ["Скидка на первый заказ", "Подписки", "Сколько стоит уборка кухни?"]
+      },
+      kitchen: {
+        answer:
+          "Уборка кухни: стандартная 80–120 BYN, генеральная со сложными загрязнениями 120–200 BYN. Дополнительно: духовка внутри 15–30, холодильник внутри 15–25, вытяжка с фильтрами 20–40, окна 5–10 BYN за створку.",
+        suggestions: ["Что входит в уборку кухни?", "Можно ли убрать только кухню?", "Как заказать уборку?"]
+      },
+      kitchenIncluded: {
+        answer:
+          "Обычно по кухне: фасады/ручки, фартук, столешница, раковина/смеситель, плита снаружи, пол/плинтусы. Внутри духовка/холодильник и вытяжка с фильтрами — чаще за доплату.",
+        suggestions: ["Сколько стоит уборка кухни?", "Как рассчитывается стоимость?", "Какие средства используете?"]
+      },
+      order: {
+        answer: "Заказать уборку можно по телефону: +375 (25) 908-51-27 или +375 (33) 684-88-44. Менеджер уточнит детали и подтвердит время.",
+        suggestions: ["Сколько времени занимает уборка?", "Оплата", "Скидка на первый заказ"]
+      },
+      pay: {
+        answer: "Оплата: наличными после уборки, картой, через ЕРИП или переводом. Для подписок возможна регулярная оплата.",
+        suggestions: ["Как заказать уборку?", "Подписки", "Сколько стоит уборка?"]
+      },
+      discount: {
+        answer: "Для новых клиентов действует скидка 10% на первый заказ (если акция активна). Подписки дают экономию до 30% относительно разовых заказов.",
+        suggestions: ["Подписки", "Сколько стоит уборка?", "Как заказать уборку?"]
+      },
+      default: {
+        answer: "Не совсем понял вопрос. Спросите про цены, подписки, уборку кухни или как заказать.",
+        suggestions: ["Сколько стоит уборка кухни?", "Какие услуги вы предлагаете?", "Как заказать уборку?"]
+      }
+    };
+
+    const synonyms = {
+      hello: ["привет", "здравствуйте", "добрый день", "hi", "hello"],
+      services: ["какие услуги", "услуги", "что делаете", "что предлагаете"],
+      price: ["сколько стоит", "цена", "стоимость", "прайс"],
+      kitchen: ["кухня", "уборка кухни", "помыть кухню"],
+      kitchenIncluded: ["что входит в уборку кухни", "что входит кухня", "состав уборки кухни"],
+      order: ["как заказать", "заказать", "оформить", "записаться"],
+      pay: ["оплата", "как оплатить", "картой", "ерип"],
+      discount: ["скидка", "акция"]
+    };
+
+    function findAnswer(q){
+      const t = (q || "").toLowerCase();
+
+      for (const [key, arr] of Object.entries(synonyms)){
+        if(arr.some(w => t.includes(w))) return knowledgeBase[key];
+      }
+
+      if (t.includes("кухн")) return knowledgeBase.kitchen;
+      if (t.includes("экспресс")) return knowledgeBase.price;
+      if (t.includes("генераль")) return knowledgeBase.price;
+      if (t.includes("ремонт")) return knowledgeBase.price;
+
+      return knowledgeBase.default;
+    }
+
+    function getTime(){
+      const d = new Date();
+      return String(d.getHours()).padStart(2,'0') + ":" + String(d.getMinutes()).padStart(2,'0');
+    }
+
+    function initDesktopChat(){
+      const chatMessages = document.getElementById('chatMessages');
+      const chatInput = document.getElementById('chatInput');
+      const chatSendBtn = document.getElementById('chatSendBtn');
+
+      function addMessage(text, who){
+        const div = document.createElement('div');
+        div.className = 'message ' + who;
+        div.innerHTML = `${text}<div class="message-time">${getTime()}</div>`;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function process(q){
+        if(!q.trim()) return;
+        addMessage(q, 'user');
+        const data = findAnswer(q);
+        setTimeout(()=> addMessage(data.answer, 'bot'), 450);
+      }
+
+      setTimeout(()=> addMessage("Здравствуйте! Я помощник TrueShine. Спросите про уборку, цены или уборку кухни.", 'bot'), 700);
+
+      chatSendBtn.addEventListener('click', ()=> process(chatInput.value), { passive:true });
+      chatInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') process(chatInput.value); });
+
+      document.querySelectorAll('.quick-question').forEach(el=>{
+        el.addEventListener('click', ()=> process(el.dataset.question));
+      });
+      document.querySelectorAll('.suggested-question').forEach(el=>{
+        el.addEventListener('click', ()=> process(el.dataset.question));
+      });
+    }
+
+    function initMobileChat(){
+      const box = document.getElementById('mobileChatMessages');
+      const input = document.getElementById('mobileChatInput');
+      const btn = document.getElementById('mobileChatSendBtn');
+
+      function add(text, who){
+        const div = document.createElement('div');
+        div.className = 'mobile-message ' + who;
+        div.innerHTML = `${text}<div class="mobile-message-time">${getTime()}</div>`;
+        box.appendChild(div);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      function process(q){
+        if(!q.trim()) return;
+        add(q, 'user');
+        const data = findAnswer(q);
+        setTimeout(()=> add(data.answer, 'bot'), 450);
+        input.value = "";
+      }
+
+      setTimeout(()=> add("Здравствуйте! Я помощник TrueShine. Напишите вопрос или выберите быстрый.", 'bot'), 500);
+
+      btn.addEventListener('click', ()=> process(input.value));
+      input.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') process(input.value); });
+
+      document.querySelectorAll('.mobile-quick-question').forEach(el=>{
+        el.addEventListener('click', ()=> process(el.dataset.question));
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // init calc first
+      calcTotal();
+
+      const isMobile = window.innerWidth <= 768;
+      if(isMobile) initMobileChat();
+      else initDesktopChat();
+
+      // Кнопки подписки — скролл в чат + вопрос
+      document.querySelectorAll('.subscription-btn').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const section = document.querySelector('#chat-bot');
+          window.scrollTo({ top: section.offsetTop - 84, behavior: 'smooth' });
+          setTimeout(()=>{
+            const input = document.getElementById('chatInput');
+            const send = document.getElementById('chatSendBtn');
+            if(input && send){
+              input.value = "Расскажите о подписках";
+              send.click();
             }
-            
-            // Общая функция поиска ответа
-            function findAnswer(question) {
-                const lowerQuestion = question.toLowerCase();
-                
-                // Проверка синонимов
-                for (const [key, words] of Object.entries(synonyms)) {
-                    for (const word of words) {
-                        if (lowerQuestion.includes(word)) {
-                            return knowledgeBase[key];
-                        }
-                    }
-                }
-                
-                // Прямой поиск в базе знаний
-                for (const [key, value] of Object.entries(knowledgeBase)) {
-                    if (lowerQuestion.includes(key)) {
-                        return value;
-                    }
-                }
-                
-                // Проверка по ключевым словам
-                const keywords = [
-                    { word: "уборк", answer: knowledgeBase["какие услуги"] },
-                    { word: "стоим", answer: knowledgeBase["сколько стоит"] },
-                    { word: "заказ", answer: knowledgeBase["как заказать"] },
-                    { word: "генеральн", answer: knowledgeBase["генеральная уборка"] },
-                    { word: "экспресс", answer: knowledgeBase["экспресс уборка"] },
-                    { word: "ремонт", answer: knowledgeBase["уборка после ремонта"] },
-                    { word: "подпис", answer: knowledgeBase["подписка"] },
-                    { word: "абонемент", answer: knowledgeBase["подписка"] },
-                    { word: "тариф", answer: knowledgeBase["тариф"] },
-                    { word: "цен", answer: knowledgeBase["цена"] },
-                    { word: "скидк", answer: knowledgeBase["скидка"] },
-                    { word: "гарант", answer: knowledgeBase["гарантия"] },
-                    { word: "средств", answer: knowledgeBase["средства"] }
-                ];
-                
-                for (const keyword of keywords) {
-                    if (lowerQuestion.includes(keyword.word)) {
-                        return keyword.answer;
-                    }
-                }
-                
-                return knowledgeBase["default"];
-            }
-            
-            // Функция получения текущего времени
-            function getCurrentTime() {
-                const now = new Date();
-                return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-            }
-            
-            // ========== МОБИЛЬНАЯ ВЕРСИЯ ==========
-            function initMobileChat() {
-                const mobileChatMessages = document.getElementById('mobileChatMessages');
-                const mobileChatInput = document.getElementById('mobileChatInput');
-                const mobileChatSendBtn = document.getElementById('mobileChatSendBtn');
-                const mobileQuickQuestions = document.querySelectorAll('.mobile-quick-question');
-                
-                // Приветственное сообщение
-                setTimeout(() => {
-                    addMobileBotMessage("Здравствуйте! Я помощник компании 'TrueShine'. Выберите вопрос из списка или напишите свой!");
-                }, 500);
-                
-                // Функция добавления сообщения от бота (мобильная)
-                function addMobileBotMessage(text) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'mobile-message bot';
-                    messageDiv.innerHTML = `
-                        ${text}
-                        <div class="mobile-message-time">${getCurrentTime()}</div>
-                    `;
-                    mobileChatMessages.appendChild(messageDiv);
-                    mobileChatMessages.scrollTop = mobileChatMessages.scrollHeight;
-                }
-                
-                // Функция добавления сообщения от пользователя (мобильная)
-                function addMobileUserMessage(text) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'mobile-message user';
-                    messageDiv.innerHTML = `
-                        ${text}
-                        <div class="mobile-message-time">${getCurrentTime()}</div>
-                    `;
-                    mobileChatMessages.appendChild(messageDiv);
-                    mobileChatMessages.scrollTop = mobileChatMessages.scrollHeight;
-                }
-                
-                // Обработка вопроса (мобильная)
-                function processMobileQuestion(question) {
-                    if (!question.trim()) return;
-                    
-                    addMobileUserMessage(question);
-                    
-                    const answerData = findAnswer(question);
-                    
-                    setTimeout(() => {
-                        addMobileBotMessage(answerData.answer);
-                    }, 500);
-                    
-                    mobileChatInput.value = '';
-                }
-                
-                // Обработчики для мобильной версии
-                mobileChatSendBtn.addEventListener('click', () => {
-                    processMobileQuestion(mobileChatInput.value);
-                });
-                
-                mobileChatInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        processMobileQuestion(mobileChatInput.value);
-                    }
-                });
-                
-                mobileQuickQuestions.forEach(question => {
-                    question.addEventListener('click', () => {
-                        processMobileQuestion(question.getAttribute('data-question'));
-                    });
-                });
-                
-                // Анимации для мобильной версии
-                const animatedElements = document.querySelectorAll('.section-title, .service-item, .step, .benefit-card, .cta h2, .cta p, .cta-btn, .why-us-card, .subscription-card');
-                
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const index = Array.from(animatedElements).indexOf(entry.target);
-                            setTimeout(() => {
-                                entry.target.style.animation = `fadeInUp 1s ease forwards`;
-                            }, index * 200);
-                            
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                
-                animatedElements.forEach(el => {
-                    observer.observe(el);
-                });
-                
-                // Аккордеон для услуг (мобильная)
-                const serviceHeaders = document.querySelectorAll('.service-header');
-                serviceHeaders.forEach(header => {
-                    header.addEventListener('click', () => {
-                        const serviceItem = header.parentElement;
-                        serviceItem.classList.toggle('active');
-                    });
-                });
-                
-                // Аккордеон для FAQ (мобильная)
-                const faqQuestions = document.querySelectorAll('.faq-question');
-                faqQuestions.forEach(question => {
-                    question.addEventListener('click', () => {
-                        const faqItem = question.parentElement;
-                        faqItem.classList.toggle('active');
-                    });
-                });
-                
-                // Плавная прокрутка для навигации (мобильная)
-                const navLinks = document.querySelectorAll('nav a');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetId = link.getAttribute('href');
-                        const targetSection = document.querySelector(targetId);
-                        if (targetSection) {
-                            window.scrollTo({
-                                top: targetSection.offsetTop - 80,
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-            }
-            
-            // ========== ПК ВЕРСИЯ ==========
-            function initDesktopChat() {
-                const chatMessages = document.getElementById('chatMessages');
-                const chatInput = document.getElementById('chatInput');
-                const chatSendBtn = document.getElementById('chatSendBtn');
-                const quickQuestions = document.querySelectorAll('.quick-question');
-                const suggestedQuestions = document.querySelectorAll('.suggested-question');
-                
-                // Приветственное сообщение
-                setTimeout(() => {
-                    addBotMessage("Здравствуйте! Я помощник компании 'TrueShine'. Задайте мне любой вопрос об уборке, ценах, подписках или наших услугах!");
-                }, 1000);
-                
-                // Функция добавления сообщения от бота (ПК)
-                function addBotMessage(text) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message bot';
-                    messageDiv.innerHTML = `
-                        ${text}
-                        <div class="message-time">${getCurrentTime()}</div>
-                    `;
-                    chatMessages.appendChild(messageDiv);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                    
-                    setTimeout(() => {
-                        messageDiv.style.animation = 'fadeIn 0.3s ease';
-                    }, 10);
-                }
-                
-                // Функция добавления сообщения от пользователя (ПК)
-                function addUserMessage(text) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message user';
-                    messageDiv.innerHTML = `
-                        ${text}
-                        <div class="message-time">${getCurrentTime()}</div>
-                    `;
-                    chatMessages.appendChild(messageDiv);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                    
-                    setTimeout(() => {
-                        messageDiv.style.animation = 'fadeIn 0.3s ease';
-                    }, 10);
-                }
-                
-                // Обработка вопроса (ПК)
-                function processQuestion(question) {
-                    if (!question.trim()) return;
-                    
-                    addUserMessage(question);
-                    
-                    const answerData = findAnswer(question);
-                    
-                    setTimeout(() => {
-                        addBotMessage(answerData.answer);
-                        
-                        // Если есть предложения следующих вопросов, добавляем их
-                        if (answerData.suggestions && answerData.suggestions.length > 0) {
-                            setTimeout(() => {
-                                const suggestionsDiv = document.createElement('div');
-                                suggestionsDiv.className = 'suggested-questions';
-                                suggestionsDiv.style.marginTop = '10px';
-                                
-                                answerData.suggestions.forEach(suggestion => {
-                                    const suggestionBtn = document.createElement('div');
-                                    suggestionBtn.className = 'suggested-question';
-                                    suggestionBtn.textContent = suggestion;
-                                    suggestionBtn.style.margin = '5px';
-                                    suggestionBtn.onclick = () => {
-                                        processQuestion(suggestion);
-                                    };
-                                    suggestionsDiv.appendChild(suggestionBtn);
-                                });
-                                
-                                chatMessages.appendChild(suggestionsDiv);
-                                chatMessages.scrollTop = chatMessages.scrollHeight;
-                            }, 300);
-                        }
-                    }, 500);
-                    
-                    chatInput.value = '';
-                }
-                
-                // Обработчики для ПК версии
-                chatSendBtn.addEventListener('click', () => {
-                    processQuestion(chatInput.value);
-                });
-                
-                chatInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        processQuestion(chatInput.value);
-                    }
-                });
-                
-                quickQuestions.forEach(question => {
-                    question.addEventListener('click', () => {
-                        processQuestion(question.getAttribute('data-question'));
-                    });
-                });
-                
-                suggestedQuestions.forEach(question => {
-                    question.addEventListener('click', () => {
-                        processQuestion(question.getAttribute('data-question'));
-                    });
-                });
-                
-                // Анимации для ПК версии
-                const animatedElements = document.querySelectorAll('.section-title, .service-item, .step, .benefit-card, .cta h2, .cta p, .cta-btn, .why-us-card, .subscription-card');
-                
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const index = Array.from(animatedElements).indexOf(entry.target);
-                            setTimeout(() => {
-                                entry.target.style.animation = `fadeInUp 1s ease forwards`;
-                            }, index * 200);
-                            
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                
-                animatedElements.forEach(el => {
-                    observer.observe(el);
-                });
-                
-                // Аккордеон для услуг (ПК)
-                const serviceHeaders = document.querySelectorAll('.service-header');
-                serviceHeaders.forEach(header => {
-                    header.addEventListener('click', () => {
-                        const serviceItem = header.parentElement;
-                        serviceItem.classList.toggle('active');
-                    });
-                });
-                
-                // Аккордеон для FAQ (ПК)
-                const faqQuestions = document.querySelectorAll('.faq-question');
-                faqQuestions.forEach(question => {
-                    question.addEventListener('click', () => {
-                        const faqItem = question.parentElement;
-                        faqItem.classList.toggle('active');
-                    });
-                });
-                
-                // Плавная прокрутка для навигации (ПК)
-                const navLinks = document.querySelectorAll('nav a');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetId = link.getAttribute('href');
-                        const targetSection = document.querySelector(targetId);
-                        if (targetSection) {
-                            window.scrollTo({
-                                top: targetSection.offsetTop - 80,
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-                
-                // Кнопки подписок ведут в чат (ПК)
-                const subscriptionButtons = document.querySelectorAll('.subscription-btn');
-                subscriptionButtons.forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const chatBotSection = document.querySelector('#chat-bot');
-                        if (chatBotSection) {
-                            window.scrollTo({
-                                top: chatBotSection.offsetTop - 80,
-                                behavior: 'smooth'
-                            });
-                            // Автоматически задаем вопрос о подписке
-                            setTimeout(() => {
-                                processQuestion("Расскажите о подписках");
-                            }, 1000);
-                        }
-                    });
-                });
-            }
+          }, 900);
         });
-    </script>
+      });
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
