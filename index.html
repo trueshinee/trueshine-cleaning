@@ -1025,7 +1025,7 @@
               <a class="btn" href="#chat-bot">Уточнить у помощника</a>
             </div>
             <div style="color:var(--muted); font-size:.92rem;">
-              Базовые ставки (примерно): Экспресс 1.6 BYN/м², Стандарт 2.2 BYN/м², Генеральная 3.0 BYN/м², После ремонта 4.2 BYN/м².
+              Базовые ставки (примерно): Экспресс 2.2 BYN/м², Стандарт 3.0 BYN/м², Генеральная 4.2 BYN/м², После ремонта 5.2 BYN/м².
             </div>
           </div>
           <div class="calc-result">
@@ -1211,7 +1211,7 @@
   </footer>
 
   <script>
-    const rates = { express: 1.6, standard: 2.2, general: 3.0, post: 4.2 };
+    const rates = { express: 2.2, standard: 3.0, general: 4.2, post: 5.2 };
     function formatBYN(n){ return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(n) + " BYN"; }
     function calcTotal(){
       const type = document.getElementById('calcType').value;
